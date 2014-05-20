@@ -20,7 +20,7 @@ public:
 protected:
 	Color clr;
 
-	//Chessboard* board;
+	Chessboard* board;
 };
 
 

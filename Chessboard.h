@@ -13,7 +13,7 @@ public:
 
 
 private:
-	vector< vector< Figure > > board;
+	vector< vector< Figure* > > board;
 	vector< MoveInfo > history;
 };
 
