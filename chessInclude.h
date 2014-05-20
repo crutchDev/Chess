@@ -10,10 +10,13 @@ typedef enum { BLACK,WHITE } Color;
 
 using namespace std;
 
+class King;
 class Figure;
 class MoveInfo;
 
+
 #include "Chessboard.h"
 #include "Figure.h"
+#include "Figures.h"
 #include "MoveInfo.h"
 #include "Player.h"

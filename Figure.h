@@ -13,7 +13,8 @@ public:
 
 	virtual bool canMove( ChessboardPos& pos ) const = 0;
 	virtual void move( ChessboardPos& pos ) = 0;
-	virtual std::vector< ChessboardPos > getAllowedMove() = 0; 
+	virtual vector< ChessboardPos > getAllowedMove() = 0;
+
 
 	Color getColor() { return clr; }
 protected:

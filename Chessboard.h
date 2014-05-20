@@ -10,7 +10,7 @@ public:
 	Chessboard();
 	~Chessboard();
 	void Reset();
-	bool GameOver();
+
 
 private:
 	vector< vector< Figure > > board;
