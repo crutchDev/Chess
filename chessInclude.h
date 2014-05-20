@@ -10,7 +10,7 @@ typedef enum { BLACK,WHITE } Color;
 
 using namespace std;
 
-class King;
+//class King;
 class Figure;
 class MoveInfo;
 
