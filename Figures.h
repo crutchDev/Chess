@@ -31,11 +31,6 @@ class Pawn : public Figure{
 		//TODO
 	}
 
-	bool isAttacked() {
-		// TODO
-		return false;
-	}
-
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
 		return false;
@@ -53,11 +48,6 @@ class Pawn : public Figure{
 };
 
 class Rook : public Figure{
-	bool isAttacked() {
-		// TODO
-		return false;
-	}
-
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
 		return false;
@@ -75,10 +65,6 @@ class Rook : public Figure{
 };
 
 class Queen : public Figure {
-	bool isAttacked() {
-		// TODO
-		return false;
-	}
 
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
@@ -97,10 +83,7 @@ class Queen : public Figure {
 };
 
 class Knight : public Figure{
-	bool isAttacked() {
-		// TODO
-		return false;
-	}
+
 
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
@@ -119,11 +102,6 @@ class Knight : public Figure{
 };
 
 class Bishop : public Figure{
-	bool isAttacked() {
-		// TODO
-		return false;
-	}
-
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
 		return false;
