@@ -24,5 +24,7 @@ public:
 private:
 	list<Figure*> figures;
 	King* king;
+		Color team;
+		string name;
 
 };
