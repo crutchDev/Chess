@@ -5,11 +5,11 @@
 #include "Player.h"
 
 
-Player::Player(void) {
+Player::Player(Figure::Color clr) {
 
 }
 
 
-Player::~Player(void) {
+Player::~Player() {
 
 }

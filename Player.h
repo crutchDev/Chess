@@ -4,15 +4,12 @@
 #pragma once
 
 #include "chessInclude.h"
-
+#include "Figure.h"
 class Player {
 public:
-	Player(void);
-	~Player(void);
+	Player(Figure::Color team);
+	~Player();
 
 private:
 	
-
-
 };
-
