@@ -2,8 +2,7 @@
 /// purpose : 
 
 
-#include "Player.h"
-
+#include "chessInclude.h"
 
 Player::Player(Color clr) {
 

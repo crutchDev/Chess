@@ -2,6 +2,8 @@
 
 #pragma once
 
+typedef enum { BLACK,WHITE } Color;
+
 #include <vector>
 #include <string>
 #include <list>
@@ -15,6 +17,3 @@ class MoveInfo;
 #include "Figure.h"
 #include "MoveInfo.h"
 #include "Player.h"
-
-
-typedef enum { BLACK,WHITE } Color;
