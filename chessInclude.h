@@ -2,6 +2,10 @@
 
 #pragma once
 
+class Figure;
+class MoveInfo;
+class King;
+
 typedef enum { BLACK,WHITE } Color;
 
 #include <vector>
@@ -9,11 +13,6 @@ typedef enum { BLACK,WHITE } Color;
 #include <list>
 
 using namespace std;
-
-//class King;
-class Figure;
-class MoveInfo;
-
 
 #include "Chessboard.h"
 #include "Figure.h"

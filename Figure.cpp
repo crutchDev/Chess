@@ -1,7 +1,7 @@
 
 /// purpose : 
 
-#include "Figure.h"
+#include "chessInclude.h"
 
 
 Figure::Figure(void) {

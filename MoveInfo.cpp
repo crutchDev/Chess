@@ -1,6 +1,6 @@
 
 
-#include "MoveInfo.h"
+#include "chessInclude.h"
 
 //MoveInfo::MoveInfo(Figure::ChessboardPos beg, Figure::ChessboardPos end, Figure* _killed) : startPos(beg), endPos(end), killed(killed) {
 //
