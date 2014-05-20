@@ -22,20 +22,7 @@ public:
 
 	}
 	
-	void gameActivity() {
-			while ( true ) {
-				if ( white->gameOver() ) {
-					achivement(black);
-					break;
-				}
-				white->step();
-				if ( black->gameOver() ) {
-					achivement(white);
-					break;
-				}				
-				black->step();
-			}
-	}
+	void gameActivity();
 
 	void achivement(Player* who) {
 
