@@ -22,6 +22,7 @@ public:
 
 
 private:
+	list<Figure*> figures;
 	King* king;
 
 };

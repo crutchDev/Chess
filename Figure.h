@@ -8,7 +8,8 @@
 class Figure {
 public:
 
-	Figure();
+	//Figure();
+	Figure(Chessboard* b, Color c) :board(b), clr(c) { };
 	virtual ~Figure();
 
 	virtual bool canMove(ChessboardPos& pos) const = 0;
