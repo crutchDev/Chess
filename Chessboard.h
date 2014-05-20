@@ -1,11 +1,9 @@
+
+
+
 #pragma once
 
 #include "chessInclude.h"
-
-//#include "Figure.h"
-#include "MoveInfo.h"
-
-
 
 class Chessboard {
 public:
@@ -15,7 +13,13 @@ public:
 	bool GameOver();
 
 private:
-	vector<vector<Figure>> board;
-	vector<MoveInfo> hist;
+	vector< vector< Figure > > board;
+	vector< MoveInfo > history;
 };
 
+struct ChessboardPos {
+	ChessboardPos(int x,int y) : x(x),y(y) { }
+	// let (0,0) be low left corner
+	int x;	// are good names ?
+	int y;
+};
