@@ -9,12 +9,10 @@ class Chessboard {
 public:
 	Chessboard();
 	~Chessboard();
-	void Reset();
-
 
 private:
 	vector< vector< Figure* > > board;
-	vector< MoveInfo > history;
+
 };
 
 struct ChessboardPos {
