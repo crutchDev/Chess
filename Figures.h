@@ -27,6 +27,7 @@ public :
 };
 
 class Pawn : public Figure{
+public:
 	void Transform(){
 		//TODO
 	}
@@ -48,6 +49,7 @@ class Pawn : public Figure{
 };
 
 class Rook : public Figure{
+public:
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
 		return false;
@@ -65,7 +67,7 @@ class Rook : public Figure{
 };
 
 class Queen : public Figure {
-
+public:
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
 		return false;
@@ -84,7 +86,7 @@ class Queen : public Figure {
 
 class Knight : public Figure{
 
-
+public:
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
 		return false;
@@ -102,6 +104,7 @@ class Knight : public Figure{
 };
 
 class Bishop : public Figure{
+public:
 	virtual bool canMove(ChessboardPos& pos) {
 		// TODO
 		return false;
