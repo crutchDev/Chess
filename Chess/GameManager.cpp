@@ -7,6 +7,7 @@ GameManager::GameManager(void) {
 }
 
 void GameManager::gameActivity() {
+
     while ( true ) {
       	if ( white->gameOver() ) {
         		achivement(black);
@@ -19,4 +20,5 @@ void GameManager::gameActivity() {
       	}				
       	black->step();
     }
+
 }

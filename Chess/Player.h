@@ -7,7 +7,7 @@
 
 class Player {
 public:
-	Player(Color team);
+	Player(Color team,string name);
 	~Player();
 
 
@@ -19,10 +19,13 @@ public:
 		
 	}
 
-
-
 private:
+	string genStdPlayerName();
+	void initFigures(ChessboardPos corner,bool direction);
+	static int playerCounter;
+
 	list<Figure*> figures;
+	Chessboard* board;
 	King* king;
 	Color team;
 	string name;

@@ -5,12 +5,14 @@
 
 class King : public Figure {
 public :
+	King(Chessboard* b, Color c) : Figure(b,c) {}
+
 	bool isAttacked() {
 		// TODO
 		return false;
 	}
 
-	virtual bool canMove( ChessboardPos& pos ) {
+	virtual bool canMove( ChessboardPos& pos ) const {
 		// TODO
 		return false;
 	}
@@ -26,13 +28,15 @@ public :
 	}
 };
 
-class Pawn : public Figure{
+class Pawn : public Figure {
 public:
-	void Transform(){
+	Pawn(Chessboard* b, Color c) : Figure(b,c) {}
+
+	void Transform() {
 		//TODO
 	}
 
-	virtual bool canMove(ChessboardPos& pos) {
+	virtual bool canMove(ChessboardPos& pos) const {
 		// TODO
 		return false;
 	}
@@ -48,9 +52,11 @@ public:
 	}
 };
 
-class Rook : public Figure{
+class Rook : public Figure {
 public:
-	virtual bool canMove(ChessboardPos& pos) {
+	Rook(Chessboard* b, Color c) : Figure(b,c) {}
+
+	virtual bool canMove(ChessboardPos& pos) const {
 		// TODO
 		return false;
 	}
@@ -68,7 +74,9 @@ public:
 
 class Queen : public Figure {
 public:
-	virtual bool canMove(ChessboardPos& pos) {
+	Queen(Chessboard* b, Color c) : Figure(b,c) {}
+
+	virtual bool canMove(ChessboardPos& pos) const {
 		// TODO
 		return false;
 	}
@@ -84,10 +92,12 @@ public:
 	}
 };
 
-class Knight : public Figure{
+class Officer : public Figure{
 
 public:
-	virtual bool canMove(ChessboardPos& pos) {
+	Officer(Chessboard* b, Color c) : Figure(b,c) {}
+
+	virtual bool canMove(ChessboardPos& pos) const {
 		// TODO
 		return false;
 	}
@@ -103,9 +113,11 @@ public:
 	}
 };
 
-class Bishop : public Figure{
+class Horse : public Figure{
 public:
-	virtual bool canMove(ChessboardPos& pos) {
+	Horse(Chessboard* b, Color c) : Figure(b,c) {}
+
+	virtual bool canMove(ChessboardPos& pos) const {
 		// TODO
 		return false;
 	}
@@ -120,3 +132,4 @@ public:
 		return vector< ChessboardPos >();
 	}
 };
+ 
