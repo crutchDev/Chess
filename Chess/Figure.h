@@ -9,7 +9,7 @@
 class Figure {
 public:
 
-	Figure(Chessboard* b, Color c) : board(b), clr(c),currntPos(ChessboardPos(A,0) ) { };
+	Figure(Chessboard* b, Color c, ChessboardPos pos) : board(b), clr(c),currntPos(pos) { };
 	virtual ~Figure();
 
 	bool canMove(ChessboardPos& pos) const ;
@@ -21,7 +21,7 @@ public:
 	void move(ChessboardPos& pos);
 
 	// test only 
-	// first letter it is color symbol W - white , B - clack 
+	// first letter it is color symbol W - white , B - black 
 	// second letter it is figure symbol 
 	// K - king  ; P - pawn   ; R - rook 
 	// Q - queen ; B - bishop ; H - horse 
@@ -30,7 +30,8 @@ public:
 protected:
 	string colorSchemeRep() const ;
 	virtual void calcNewAllowedMoves() = 0;
-
+	virtual void AddCell(int letter, int num);
+	bool goodCell(ChessboardPos pos);
 	Color clr;
 	Chessboard* board;
 	ChessboardPos currntPos;
