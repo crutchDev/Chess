@@ -6,16 +6,15 @@
 
 #include <sstream>
 
-#define MAX_INDEX 7
 #define ROOK_SYMMETRIC_SHIFT 0 
 #define HORSE_SYMETRIC_SHIFT 1
-#define OFFICER_SYMMETRIC_SHIFT 2
+#define BISHOP_SYMMETRIC_SHIFT 2
 #define QUEEN_RELATIVE_LEFT_CORNER_SHIFT 3
 #define KING_RELATIVE_LEFT_CORNER_SHIFT 4
 
 int Player::playerCounter = 0;
 
-Player::Player(Color clr,string name = "") : team(clr) {
+Player::Player(Color clr, Chessboard* board ,string name = "") : team(clr),board(board) {
 	if ( name.length() == 0 ) 
 		this->name = genStdPlayerName();
 	
@@ -35,7 +34,8 @@ string Player::genStdPlayerName() {
 
 
 void Player::initFigures(ChessboardPos corner,bool direction) {
-	int	pawnNumbCoord = corner.number + (direction)?(1):(0);
+	int	pawnNumbCoord = corner.number;
+	pawnNumbCoord += (direction)?(1):(-1);
 
 	board->putFigureToPos( ChessboardPos(corner.letter + ROOK_SYMMETRIC_SHIFT ,corner.number) , new Rook(board,team) );
 	board->putFigureToPos( ChessboardPos(corner.letter + MAX_INDEX - ROOK_SYMMETRIC_SHIFT , corner.number ) , new Rook(board,team) );
@@ -43,8 +43,8 @@ void Player::initFigures(ChessboardPos corner,bool direction) {
 	board->putFigureToPos( ChessboardPos(corner.letter + HORSE_SYMETRIC_SHIFT ,corner.number), new Horse(board,team) );
 	board->putFigureToPos( ChessboardPos(corner.letter + MAX_INDEX - HORSE_SYMETRIC_SHIFT ,corner.number), new Horse(board,team) );
 
-	board->putFigureToPos( ChessboardPos(corner.letter + OFFICER_SYMMETRIC_SHIFT , corner.number), new Officer(board,team) );
-	board->putFigureToPos( ChessboardPos(corner.letter + MAX_INDEX - OFFICER_SYMMETRIC_SHIFT ,corner.number), new Officer(board,team) );
+	board->putFigureToPos( ChessboardPos(corner.letter + BISHOP_SYMMETRIC_SHIFT , corner.number), new Bishop(board,team) );
+	board->putFigureToPos( ChessboardPos(corner.letter + MAX_INDEX - BISHOP_SYMMETRIC_SHIFT ,corner.number), new Bishop(board,team) );
 
 	board->putFigureToPos( ChessboardPos(corner.letter + QUEEN_RELATIVE_LEFT_CORNER_SHIFT , corner.number), new Queen(board,team) );
 	board->putFigureToPos( ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT , corner.number), new King(board,team) );
@@ -55,8 +55,20 @@ void Player::initFigures(ChessboardPos corner,bool direction) {
 	
 }
 
+bool Player::gameOver() {
+	return king->isAttacked() && king->getAllowedMove().size() == 0;
+}
+
+void Player::step() {
+
+}
+
 Player::~Player() {
 
 }
+
+
+
+
 
 

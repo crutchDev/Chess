@@ -7,17 +7,11 @@
 
 class Player {
 public:
-	Player(Color team,string name);
+	Player(Color team,Chessboard *,string name);
 	~Player();
-
-
-	bool gameOver() {
-		return king->isAttacked() && king->getAllowedMove().size() == 0;
-	}
-		
-	void step() {
-		
-	}
+	
+	bool gameOver();	
+	void step();
 
 private:
 	string genStdPlayerName();

@@ -26,6 +26,11 @@ public :
 		// TODO
 		return vector< ChessboardPos >();
 	}
+
+	virtual string getStringSchematicRep() const {
+		return colorSchemeRep() + "_" + "K";
+	}
+
 };
 
 class Pawn : public Figure {
@@ -50,6 +55,10 @@ public:
 		// TODO
 		return vector< ChessboardPos >();
 	}
+
+	virtual string getStringSchematicRep() const {
+		return colorSchemeRep() + "_" + "P";
+	}
 };
 
 class Rook : public Figure {
@@ -69,6 +78,10 @@ public:
 
 		// TODO
 		return vector< ChessboardPos >();
+	}
+
+	virtual string getStringSchematicRep() const {
+		return colorSchemeRep() + "_" + "R";
 	}
 };
 
@@ -90,12 +103,16 @@ public:
 		// TODO
 		return vector< ChessboardPos >();
 	}
+
+	virtual string getStringSchematicRep() const {
+		return colorSchemeRep() + "_" + "Q";
+	}
 };
 
-class Officer : public Figure{
+class Bishop : public Figure{
 
 public:
-	Officer(Chessboard* b, Color c) : Figure(b,c) {}
+	Bishop(Chessboard* b, Color c) : Figure(b,c) {}
 
 	virtual bool canMove(ChessboardPos& pos) const {
 		// TODO
@@ -110,6 +127,10 @@ public:
 
 		// TODO
 		return vector< ChessboardPos >();
+	}
+
+	virtual string getStringSchematicRep() const {
+		return colorSchemeRep() + "_" + "B";
 	}
 };
 
@@ -130,6 +151,10 @@ public:
 
 		// TODO
 		return vector< ChessboardPos >();
+	}
+
+	virtual string getStringSchematicRep() const {
+		return colorSchemeRep() + "_" + "H";
 	}
 };
  

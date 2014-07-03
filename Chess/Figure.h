@@ -17,16 +17,24 @@ public:
 	virtual vector< ChessboardPos > getAllowedMove() = 0;
 	
 	Color getColor() { return clr; }
-	Chessboard* boardWhereLocated() { return board; }
-	ChessboardPos posWhereLocated() { return currntPos; }
+	Chessboard* boardWhereLocated() const { return board; }
+	ChessboardPos posWhereLocated() const { return currntPos; }
 	void changeLocation(ChessboardPos newPos) { currntPos = newPos; } 
 
+	// test only 
+	// first letter it is color symbol W - white , B - clack 
+	// second letter it is figure symbol 
+	// K - king  ; P - pawn   ; R - rook 
+	// Q - queen ; B - bishop ; H - horse 
+	virtual string getStringSchematicRep() const = 0;
+
 protected:
+	string colorSchemeRep() const ;
+
 	Color clr;
 
 	Chessboard* board;
 	ChessboardPos currntPos;
 
 };
-
 

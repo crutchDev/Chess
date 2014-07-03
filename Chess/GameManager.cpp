@@ -1,9 +1,14 @@
 
 
 #include "chessInclude.h"
+#include <iostream>
 
+GameManager::GameManager(GameInterface* communicator) {
+	board = new Chessboard();
+	white = new Player(WHITE,board, communicator->requestNameForColor(WHITE));
+	black = new Player(BLACK,board, communicator->requestNameForColor(BLACK));
 
-GameManager::GameManager(void) {
+	board->outBoard(cout);
 }
 
 void GameManager::gameActivity() {
@@ -21,4 +26,11 @@ void GameManager::gameActivity() {
       	black->step();
     }
 
+}
+
+std::string ConsoleInterface::requestNameForColor(Color clr) {
+	cout << "Please, enter name for " << ((clr == WHITE)?("white"):("black")) << " player : ";
+	string name;
+	cin >> name;
+	return name;
 }

@@ -9,6 +9,8 @@
 #include "chessInclude.h"
 
 int main ()  {
+	ConsoleInterface iface;
+	GameManager manager(&iface);
 
 
 
