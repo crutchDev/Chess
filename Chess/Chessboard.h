@@ -35,7 +35,7 @@ public:
 	~Chessboard();
 
 	Figure*& Chessboard::operator[](ChessboardPos pos);
-	void putFigureToPos(ChessboardPos& pos,Figure* figr);
+	void putFigureToPos(Figure* figr);
 
 	// for test only 
 	void outBoard(ostream& o);

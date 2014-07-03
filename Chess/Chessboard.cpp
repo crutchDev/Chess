@@ -13,9 +13,9 @@ Chessboard::~Chessboard(void) {
 			delete board[i][j];
 }
 
-void Chessboard::putFigureToPos(ChessboardPos& pos,Figure* figr) {
+void Chessboard::putFigureToPos(Figure* figr) {
+	ChessboardPos pos = figr->posWhereLocated();
 	board[pos.letter][pos.number] = figr;
-	figr->setLocation(pos);
 }
 
 Figure*& Chessboard::operator[](ChessboardPos pos) {

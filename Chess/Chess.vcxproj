@@ -66,6 +66,7 @@
   <ItemGroup>
     <ClCompile Include="Chessboard.cpp" />
     <ClCompile Include="Figure.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="MainActivity.cpp" />
     <ClCompile Include="MoveInfo.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="chessInclude.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="Figures.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="MoveInfo.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

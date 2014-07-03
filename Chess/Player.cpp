@@ -39,21 +39,21 @@ string Player::genStdPlayerName() {
 void Player::initFigures(ChessboardPos corner,bool direction) {
 	int	pawnNumbCoord = corner.number;
 	pawnNumbCoord += (direction)?(1):(-1);
-		
-	board->putFigureToPos( ChessboardPos(corner.letter + ROOK_SYMMETRIC_SHIFT ,corner.number) , storeFigure(new Rook(board,team)) );
-	board->putFigureToPos( ChessboardPos(corner.letter + MAX_INDEX - ROOK_SYMMETRIC_SHIFT , corner.number ) , storeFigure(new Rook(board,team)) );
 
-	board->putFigureToPos( ChessboardPos(corner.letter + HORSE_SYMETRIC_SHIFT ,corner.number), storeFigure(new Horse(board,team)) );
-	board->putFigureToPos( ChessboardPos(corner.letter + MAX_INDEX - HORSE_SYMETRIC_SHIFT ,corner.number), storeFigure(new Horse(board,team)) );
+	board->putFigureToPos(new Rook(board, team, ChessboardPos(corner.letter + ROOK_SYMMETRIC_SHIFT, corner.number)));
+	board->putFigureToPos(new Rook(board, team, ChessboardPos(corner.letter + MAX_INDEX - ROOK_SYMMETRIC_SHIFT, corner.number)));
 
-	board->putFigureToPos( ChessboardPos(corner.letter + BISHOP_SYMMETRIC_SHIFT , corner.number), storeFigure(new Bishop(board,team)) );
-	board->putFigureToPos( ChessboardPos(corner.letter + MAX_INDEX - BISHOP_SYMMETRIC_SHIFT ,corner.number), storeFigure(new Bishop(board,team)) );
+	board->putFigureToPos(new Horse(board, team, ChessboardPos(corner.letter + HORSE_SYMETRIC_SHIFT, corner.number)));
+	board->putFigureToPos(new Horse(board, team, ChessboardPos(corner.letter + MAX_INDEX - HORSE_SYMETRIC_SHIFT, corner.number)));
 
-	board->putFigureToPos( ChessboardPos(corner.letter + QUEEN_RELATIVE_LEFT_CORNER_SHIFT , corner.number), storeFigure(new Queen(board,team)) );
-	board->putFigureToPos( ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT , corner.number), storeFigure(king = new King(board,team)) );
+	board->putFigureToPos(new Bishop(board, team, ChessboardPos(corner.letter + BISHOP_SYMMETRIC_SHIFT, corner.number)));
+	board->putFigureToPos(new Bishop(board, team, ChessboardPos(corner.letter + MAX_INDEX - BISHOP_SYMMETRIC_SHIFT, corner.number)));
+
+	board->putFigureToPos(new Queen(board, team, ChessboardPos(corner.letter + QUEEN_RELATIVE_LEFT_CORNER_SHIFT, corner.number)));
+	board->putFigureToPos(new King(board, team, ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT, corner.number)));
 
 	for ( int i = 0 ; i <= MAX_INDEX ; i++) {
-		board->putFigureToPos( ChessboardPos(CharCoord(i), pawnNumbCoord ), storeFigure(new Pawn(board,team)) );
+		board->putFigureToPos(new Pawn(board, team, ChessboardPos(CharCoord(i), pawnNumbCoord)));
 	}	
 }
 

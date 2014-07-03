@@ -50,10 +50,6 @@ public:
 		return colorSchemeRep() + "_" + "P";
 	}
 
-	virtual void calcNewAllowedMoves()
-	{
-		throw std::logic_error("The method or operation is not implemented.");
-	}
 
 	virtual void calcNewAllowedMoves()
 	{
@@ -170,10 +166,6 @@ public:
 		return colorSchemeRep() + "_" + "H";
 	}
 
-	virtual void calcNewAllowedMoves()
-	{
-		throw std::logic_error("The method or operation is not implemented.");
-	}
 	virtual void calcNewAllowedMoves()
 	{
 		try{
