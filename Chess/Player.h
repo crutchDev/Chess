@@ -11,14 +11,16 @@ public:
 	~Player();
 	
 	bool gameOver();	
-	void step();
+	void step(GameInterface* communicator);
+	string getName() const { return name; }
 
 private:
 	string genStdPlayerName();
 	void initFigures(ChessboardPos corner,bool direction);
+	Figure* storeFigure(Figure* f);
 	static int playerCounter;
 
-	list<Figure*> figures;
+	vector<Figure*> figures;
 	Chessboard* board;
 	King* king;
 	Color team;

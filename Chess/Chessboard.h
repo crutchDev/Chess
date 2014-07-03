@@ -8,31 +8,21 @@
 
 struct ChessboardPos {
 
-	ChessboardPos(CharCoord letter,int number) : letter(letter),number(number) {
-		if ( number < 0 || number > MAX_INDEX )
-			throw invalid_argument("Invalid pos number.");
-	}
-
-	ChessboardPos(int letterNumb, int numb ) {
-		if ( letterNumb < 0 || letterNumb > MAX_INDEX )
-			throw invalid_argument("Invalid pos letter number.");
-		if ( numb < 0 || numb > MAX_INDEX )
-			throw invalid_argument("Invalid pos number.");
-		letter = CharCoord(letterNumb);
-		number = numb;
-	}
-
+	ChessboardPos(CharCoord letter,int number);
+	ChessboardPos(int letterNumb, int numb );
+	ChessboardPos () : letter(A),number(-1) { }
 	ChessboardPos(const ChessboardPos& cp) : letter(cp.letter),number(cp.number) { } 
 
-	ChessboardPos& operator=(const ChessboardPos& cp) {
-		letter = cp.letter;
-		number = cp.number;
-		return *this;
-	}
+	ChessboardPos& operator=(const ChessboardPos& cp);
+	
+	bool operator==(const ChessboardPos& pos) const;
+	bool operator<(const ChessboardPos& pos) const;
+	bool operator>(const ChessboardPos& pos) const ;
+	bool isImagine() ;
 
-	bool operator==(const ChessboardPos& pos) {
-		return number == pos.number && letter == pos.letter;
-	}
+	friend ostream& operator<<(ostream&,ChessboardPos&);	
+	friend istream& operator>>(istream&,ChessboardPos&);
+
 
 	// let (0,0) be low left corner
 	CharCoord letter;	
@@ -44,6 +34,7 @@ public:
 	Chessboard();
 	~Chessboard();
 
+	Figure*& Chessboard::operator[](ChessboardPos pos);
 	void putFigureToPos(ChessboardPos& pos,Figure* figr);
 
 	// for test only 

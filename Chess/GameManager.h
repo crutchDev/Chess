@@ -7,14 +7,21 @@
 
 class GameInterface {
 public:
-	virtual string requestNameForColor(Color clr) = 0;
-	
+	virtual string requestPlayerNameForColor(Color clr) = 0;
+	virtual Figure* selectFigure(vector <Figure*> from) = 0;
+	ChessboardPos selectPosToMove(set < ChessboardPos >& allowedMoves ) {
+		selectPosToMove(move(allowedMoves));
+	}
+	virtual ChessboardPos selectPosToMove(set < ChessboardPos >&& allowedMoves ) = 0;
+	virtual void introducePlayerStep(Player* plr) = 0;
 };
 
-class ConsoleInterface : public GameInterface {
+ class ConsoleInterface : public GameInterface {
 public:
-	virtual string requestNameForColor(Color clr);
-
+	virtual string requestPlayerNameForColor(Color clr);
+	virtual Figure* selectFigure(vector<Figure*> from);
+	virtual ChessboardPos selectPosToMove(set < ChessboardPos >&& allowedMoves );
+	virtual void introducePlayerStep(Player* plr);
 };
 
 //class GuiInterface : public GameInterface {
@@ -24,11 +31,7 @@ public:
 class GameManager {
 public:
 	GameManager(GameInterface* communicator);
-	~GameManager() {
-		delete board;
-		delete white;
-		delete black;
-	}
+	~GameManager();
 	
 	void startGame() {
 				
@@ -40,12 +43,12 @@ public:
 	
 	void gameActivity();
 
+
+private : 
 	void achivement(Player* who) {
 
 	}
 
-
-private : 
 	GameInterface* communicator;
 
 	Chessboard* board;

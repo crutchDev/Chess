@@ -11,7 +11,7 @@
 int main ()  {
 	ConsoleInterface iface;
 	GameManager manager(&iface);
-
+	manager.gameActivity();
 
 
 	return 0;

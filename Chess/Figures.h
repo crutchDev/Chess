@@ -12,23 +12,14 @@ public :
 		return false;
 	}
 
-	virtual bool canMove( ChessboardPos& pos ) const {
-		// TODO
-		return false;
-	}
-	
-	virtual void move( ChessboardPos& pos ) {
-			// TODO
-	}
-
-	virtual vector< ChessboardPos > getAllowedMove() {
-
-		// TODO
-		return vector< ChessboardPos >();
-	}
 
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "K";
+	}
+
+	virtual void calcNewAllowedMoves()
+	{
+		throw std::logic_error("The method or operation is not implemented.");
 	}
 
 };
@@ -41,72 +32,47 @@ public:
 		//TODO
 	}
 
-	virtual bool canMove(ChessboardPos& pos) const {
-		// TODO
-		return false;
-	}
-
-	virtual void move(ChessboardPos& pos) {
-		// TODO
-	}
-
-	virtual vector< ChessboardPos > getAllowedMove() {
-
-		// TODO
-		return vector< ChessboardPos >();
-	}
-
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "P";
 	}
+
+	virtual void calcNewAllowedMoves()
+	{
+		throw std::logic_error("The method or operation is not implemented.");
+	}
+
 };
 
 class Rook : public Figure {
 public:
 	Rook(Chessboard* b, Color c) : Figure(b,c) {}
 
-	virtual bool canMove(ChessboardPos& pos) const {
-		// TODO
-		return false;
-	}
 
-	virtual void move(ChessboardPos& pos) {
-		// TODO
-	}
-
-	virtual vector< ChessboardPos > getAllowedMove() {
-
-		// TODO
-		return vector< ChessboardPos >();
-	}
 
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "R";
 	}
+
+	virtual void calcNewAllowedMoves()
+	{
+		throw std::logic_error("The method or operation is not implemented.");
+	}
+
 };
 
 class Queen : public Figure {
 public:
 	Queen(Chessboard* b, Color c) : Figure(b,c) {}
 
-	virtual bool canMove(ChessboardPos& pos) const {
-		// TODO
-		return false;
-	}
-
-	virtual void move(ChessboardPos& pos) {
-		// TODO
-	}
-
-	virtual vector< ChessboardPos > getAllowedMove() {
-
-		// TODO
-		return vector< ChessboardPos >();
-	}
-
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "Q";
 	}
+
+	virtual void calcNewAllowedMoves()
+	{
+		throw std::logic_error("The method or operation is not implemented.");
+	}
+
 };
 
 class Bishop : public Figure{
@@ -114,47 +80,29 @@ class Bishop : public Figure{
 public:
 	Bishop(Chessboard* b, Color c) : Figure(b,c) {}
 
-	virtual bool canMove(ChessboardPos& pos) const {
-		// TODO
-		return false;
-	}
-
-	virtual void move(ChessboardPos& pos) {
-		// TODO
-	}
-
-	virtual vector< ChessboardPos > getAllowedMove() {
-
-		// TODO
-		return vector< ChessboardPos >();
-	}
-
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "B";
 	}
+
+	virtual void calcNewAllowedMoves()
+	{
+		throw std::logic_error("The method or operation is not implemented.");
+	}
+
 };
 
 class Horse : public Figure{
 public:
 	Horse(Chessboard* b, Color c) : Figure(b,c) {}
 
-	virtual bool canMove(ChessboardPos& pos) const {
-		// TODO
-		return false;
-	}
-
-	virtual void move(ChessboardPos& pos) {
-		// TODO
-	}
-
-	virtual vector< ChessboardPos > getAllowedMove() {
-
-		// TODO
-		return vector< ChessboardPos >();
-	}
-
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "H";
 	}
+
+	virtual void calcNewAllowedMoves()
+	{
+		throw std::logic_error("The method or operation is not implemented.");
+	}
+
 };
  
