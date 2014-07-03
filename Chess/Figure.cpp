@@ -18,22 +18,16 @@ void Figure::move(ChessboardPos& pos) {
 	calcNewAllowedMoves();
 }
 
-bool Figure::goodCell(ChessboardPos pos) {
-	if (pos.letter > MAX_INDEX || pos.number > MAX_INDEX){
-		return false;
-	}
-	if ((*board)[pos] == nullptr){
-		return true;
-	}
-	if ((*board)[pos]->getColor() != this->getColor()){
-		return true;
-	}
+bool Figure::isGoodCell(ChessboardPos pos) {
+	if ( !(pos.letter > MAX_INDEX || pos.number > MAX_INDEX || pos.number < 0) ) 
+		if ((*board)[pos] == nullptr || (*board)[pos]->getColor() != this->getColor() ) {
+			return true;
+		}
 	return false;
 }
 
-void Figure::AddCell(int letter, int num)
-{
-	if (goodCell(ChessboardPos(letter, num)))
+void Figure::addCell(int letter, int num) {
+	if (isGoodCell(ChessboardPos(letter, num)))
 		allowedMoves.emplace(ChessboardPos(letter, num));
 }
 

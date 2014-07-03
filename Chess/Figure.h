@@ -29,9 +29,11 @@ public:
 
 protected:
 	string colorSchemeRep() const ;
+	void addCell(int letter, int num);
+	bool isGoodCell(ChessboardPos pos);
+
 	virtual void calcNewAllowedMoves() = 0;
-	virtual void AddCell(int letter, int num);
-	bool goodCell(ChessboardPos pos);
+	
 	Color clr;
 	Chessboard* board;
 	ChessboardPos currntPos;
