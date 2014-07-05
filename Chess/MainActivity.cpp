@@ -5,17 +5,15 @@
 *written: 17/05/2014
 *last modified: 17/05/2014
 *************************************************************************/
+//#define TEST_SFML 
 
+#ifdef TEST_SFML
 
 #include <SFML/Graphics.hpp>
-#include "chessInclude.h"
 #include <thread>
 
-using namespace sf;
-
-int main ()  {
-	
-	thread window([] ()->void {
+void draw_circle(){
+	std::thread window([] ()->void {
 		sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 		sf::CircleShape shape(100.f);
 		shape.setFillColor(sf::Color::Green);
@@ -33,8 +31,25 @@ int main ()  {
 			window.draw(shape);
 			window.display();
 		}
-		
+	
 	});
+	window.detach();
+}
+
+#endif // TEST_SFML
+
+
+#include "chessInclude.h"
+
+
+
+
+int main ()  {
+	
+#ifdef TEST_SFML
+	draw_circle();
+#endif // TEST_SFML
+
 
 	ConsoleInterface iface;
 	GameManager manager(&iface);
