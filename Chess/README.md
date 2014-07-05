@@ -1,1 +1,0 @@
-SFML 2.1 x32 for VS2012 must be at C:\Software\SFML
