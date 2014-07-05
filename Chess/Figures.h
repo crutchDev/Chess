@@ -1,5 +1,6 @@
 
-#pragma once 
+#ifndef FIGURES_H
+#define FIGURES_H
 
 #include "chessInclude.h"
 
@@ -155,3 +156,4 @@ public:
 	}
 };
  
+#endif

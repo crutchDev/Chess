@@ -1,7 +1,9 @@
 
+
 /// purpose : 
 
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include "chessInclude.h"
 
@@ -27,3 +29,4 @@ private:
 	string name;
 
 };
+#endif

@@ -1,6 +1,7 @@
 
 
-#pragma once
+#ifndef CHESSINCLUDE_H 
+#define CHESSINCLUDE_H
 
 class Figure;
 class MoveInfo;
@@ -30,3 +31,6 @@ using namespace std;
 #include "MoveInfo.h"
 #include "Player.h"
 #include "GameManager.h"
+#include "GuiInterface.h"
+
+#endif

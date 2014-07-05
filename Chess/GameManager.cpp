@@ -50,7 +50,6 @@ void ConsoleInterface::introducePlayerStep(Player* plr) {
 	cout << plr->getName() << " now is your turn." << endl;
 }
 
-#pragma warning (disable : 4101 )
 Figure* ConsoleInterface::selectFigure(vector<Figure*> from) {
 	cout << "Next figures are available : " << endl;
 	for_each(from.begin(),from.end(),[]( Figure* fig )->void { 
@@ -67,9 +66,8 @@ Figure* ConsoleInterface::selectFigure(vector<Figure*> from) {
 			if ( figIter != from.end())
 				return *figIter;
 		}
-		catch (exception& exc) {
+		catch (...) {}
 
-		}
 		cout << "Selected position is invalid." << endl;
 	} while ( true );
 
@@ -85,11 +83,10 @@ ChessboardPos ConsoleInterface::selectPosToMove(set < ChessboardPos >&& allowedM
 			cin >> selectedPos;
 			return selectedPos;
 		}
-		catch (exception& e) {
+		catch (...) {
 			cout << "Selected position is invalid." << endl;
 		}
 	} while ( true ) ;
 
 }
 
-#pragma warning (default : 4101)

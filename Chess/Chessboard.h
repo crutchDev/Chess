@@ -1,7 +1,9 @@
 
 
 
-#pragma once
+
+#ifndef CHESSBOARD_H
+#define CHESSBOARD_H
 
 #include "chessInclude.h"
 
@@ -50,3 +52,4 @@ private:
 	vector< vector< Figure* > > board;
 
 };
+#endif

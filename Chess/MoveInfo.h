@@ -1,4 +1,6 @@
-#pragma  once
+
+#ifndef MOVE_INFO_H
+#define  MOVE_INFO_H
 
 
 #include "chessInclude.h"
@@ -16,3 +18,4 @@ public:
 	Chessboard* snapshot;
 };
 
+#endif

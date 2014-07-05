@@ -1,7 +1,8 @@
 
 
 
-#pragma once
+#ifndef GAME_MANAGER_H
+#define GAME_MANAGER_H
 
 #include "chessInclude.h"
 
@@ -23,10 +24,6 @@ public:
 	virtual ChessboardPos selectPosToMove(set < ChessboardPos >&& allowedMoves );
 	virtual void introducePlayerStep(Player* plr);
 };
-
-//class GuiInterface : public GameInterface {
-//
-//};
 
 class GameManager {
 public:
@@ -58,4 +55,4 @@ private :
 
 };
 
-
+#endif
