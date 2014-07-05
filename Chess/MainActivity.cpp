@@ -5,7 +5,7 @@
 *written: 17/05/2014
 *last modified: 17/05/2014
 *************************************************************************/
-//#define TEST_SFML 
+#define TEST_SFML 
 
 #ifdef TEST_SFML
 
