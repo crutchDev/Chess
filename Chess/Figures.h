@@ -49,8 +49,24 @@ public:
 		if (num == 2 && colorSchemeRep() == "W" || num == MAX_INDEX - 1 && colorSchemeRep() == "B"){
 			allowedMoves.emplace((int)currntPos.letter, currntPos.number + 2);
 		}
-		for (int i = -1; i <= 1; i++)
-			addCell(letter + i, num);
+		addCell(letter, num + 1);
+
+		if (letter > 0 && num < MAX_INDEX){
+			ChessboardPos pos(letter - 1, num + 1);
+			if ((*board)[pos]){
+				if ((*board)[pos]->getColor() != this->getColor()){
+					allowedMoves.emplace(pos);
+				}
+			}
+		}
+		if (letter < MAX_INDEX && num < MAX_INDEX){
+			ChessboardPos pos(letter + 1, num + 1);
+			if ((*board)[pos]){
+				if ((*board)[pos]->getColor() != this->getColor()){
+					allowedMoves.emplace(pos);
+				}
+			}
+		}
 	}
 
 };
