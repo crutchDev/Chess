@@ -5,7 +5,8 @@
 *written: 17/05/2014
 *last modified: 17/05/2014
 *************************************************************************/
-#define TEST_SFML 
+
+//#define TEST_SFML 
 
 #ifdef TEST_SFML
 
@@ -51,10 +52,14 @@ int main ()  {
 #endif // TEST_SFML
 
 
-	ConsoleInterface iface;
-	GameManager manager(&iface);
-	manager.gameActivity();
+	GuiInterface gIface;
 
+
+	//gIface.drawPlayWindow();
+
+	//ConsoleInterface iface;
+	GameManager manager(&gIface);
+	manager.gameActivity();
 
 		
 	return 0;

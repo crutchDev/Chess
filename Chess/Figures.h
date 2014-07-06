@@ -27,7 +27,9 @@ public :
 
 	}
 
-
+	virtual short hashCode() {
+		return (short) ( KING_TYPE << 8) | clr;
+	}
 
 };
 
@@ -70,6 +72,9 @@ public:
 		}
 	}
 
+	virtual short hashCode() {
+		return (short) ( PAWN_TYPE << 8) | clr;
+	}
 };
 
 class Rook : public Figure {
@@ -88,6 +93,10 @@ public:
 			addCell(letter,i);
 			addCell(i, num);
 		}
+	}
+
+	virtual short hashCode() {
+		return (short) ( ROOK_TYPE << 8) | clr;
 	}
 };
 
@@ -112,6 +121,10 @@ public:
 			addCell(letter - i, num + i);
 		}
 	}
+
+	virtual short hashCode() {
+		return (short) ( QUEEN_TYPE << 8) | clr;
+	}
 };
 
 class Bishop : public Figure {
@@ -131,6 +144,10 @@ public:
 			addCell(letter + i, num - i);
 			addCell(letter - i, num + i);
 		}
+	}
+
+	virtual short hashCode() {
+		return (short) ( BISHOP_TYPE << 8) | clr;
 	}
 
 };
@@ -153,6 +170,10 @@ public:
 				addCell(letter + i, num + j);
 			}
 		}
+	}
+
+	virtual short hashCode() {
+		return (short) ( HORSE_TYPE << 8) | clr;
 	}
 };
  

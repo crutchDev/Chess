@@ -22,27 +22,32 @@ Figure*& Chessboard::operator[](ChessboardPos pos) {
 	return board[pos.letter][pos.number];
 }
 
-void Chessboard::outBoard(ostream& out) {
-	for ( auto numberScaleIter = MAX_INDEX ; numberScaleIter >= 0 ; numberScaleIter-- ) {
-		out << "-" << numberScaleIter + 1 << "- ";
+void Chessboard::foreach(function<void (Figure*)> func) {
+	for ( auto numberScaleIter = MAX_INDEX ; numberScaleIter >= 0 ; numberScaleIter-- ) 
 		for ( auto letterScaleIter = 0 ; letterScaleIter <= MAX_INDEX ; letterScaleIter++ ) 
-			if ( board[letterScaleIter][numberScaleIter] != nullptr )
-				out << board[letterScaleIter][numberScaleIter]->getStringSchematicRep() << " "; 
-			else 
-				out << "[0]" << " "; 
-		out << endl;
-	}
-	out << "    ";
-	for ( char ch = 'A' ; ch <= 'H' ; ch++ ) {
-		out << "-" << ch << "- ";
-	}
-	out << endl;
+			func(board[letterScaleIter][numberScaleIter]);
 }
+
+//void Chessboard::outBoard(ostream& out) {
+//	for ( auto numberScaleIter = MAX_INDEX ; numberScaleIter >= 0 ; numberScaleIter-- ) {
+//		out << "-" << numberScaleIter + 1 << "- ";
+//		for ( auto letterScaleIter = 0 ; letterScaleIter <= MAX_INDEX ; letterScaleIter++ ) 
+//			if ( board[letterScaleIter][numberScaleIter] != nullptr )
+//				out << board[letterScaleIter][numberScaleIter]->getStringSchematicRep() << " "; 
+//			else 
+//				out << "[0]" << " "; 
+//		out << endl;
+//	}
+//	out << "    ";
+//	for ( char ch = 'A' ; ch <= 'H' ; ch++ ) {
+//		out << "-" << ch << "- ";
+//	}
+//	out << endl;
+//}
 
 // ChessboardPos
 
-ChessboardPos::ChessboardPos(int letterNumb, int numb)
-{
+ChessboardPos::ChessboardPos(int letterNumb, int numb) {
 	if ( letterNumb < 0 || letterNumb > MAX_INDEX )
 		throw invalid_argument("Invalid pos letter number.");
 	if ( numb < 0 || numb > MAX_INDEX )
@@ -85,7 +90,6 @@ ostream& operator<<(ostream& out,ChessboardPos& pos) {
 }
 
 istream& operator>>(istream& in,ChessboardPos& pos) {
-
 	string input;
 	in >> input;
 	if ( !regex_match(input,regex("^\\[[A-H],[1-8]\\]$")) )
