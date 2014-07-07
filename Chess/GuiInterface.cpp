@@ -10,17 +10,17 @@
 using namespace sf;
 
 
-GuiInterface::GuiInterface(const VideoMode& vm ) {
+GuiInterface::GuiInterface(const VideoMode& vm ) : playWindow(nullptr) {
 	xWindowSize = vm.width;
 	yWindiwSize = vm.height;
-	thread escHandler([&] () {
-		while ( true ) {
-			if ( Keyboard::isKeyPressed(Keyboard::Escape) ) {
-				exit(EXIT_SUCCESS);
-			}
-		}
-	});
-	escHandler.detach();
+	//thread escHandler([&] () {
+	//	while ( true ) {
+	//		if ( Keyboard::isKeyPressed(Keyboard::Escape) ) {
+	//			exit(EXIT_SUCCESS);
+	//		}
+	//	}
+	//});
+	//escHandler.detach();
 }
 
 
@@ -99,16 +99,8 @@ bool GuiInterface::isExist() {
 	return playWindow->isOpen();
 }
 
-void GuiInterface::handleEvents() {
-	Event event;
-	while ( playWindow->pollEvent(event) ) {
-		if ( event.type = Event::Closed)
-			playWindow->close();
-	}
-}
-
 void GuiInterface::start() {
-	playWindow = new RenderWindow(VideoMode(xWindowSize,yWindiwSize),WINDOW_NAME);
+	playWindow = createWindowAndWindowHandlerThread();
 	Image icon;
 	icon.loadFromFile(WINDOW_ICON);
 	playWindow->setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
@@ -165,5 +157,24 @@ map< short , Texture >* GuiInterface::fillTextures() {
 	(*textures)[Figure::figureHashCode<Queen>(BLACK)] = t;
 
 	return textures;
+}
+
+RenderWindow* GuiInterface::createWindowAndWindowHandlerThread() const {
+	RenderWindow* returnedWindow = nullptr;
+	thread windowEventsHandler([=,&returnedWindow] ()->void {
+		RenderWindow* createdWindow = new RenderWindow(VideoMode(xWindowSize,yWindiwSize),WINDOW_NAME);
+		createdWindow->setActive(false);
+		returnedWindow = createdWindow;
+		while (createdWindow->isOpen()) {
+			sf::Event event;
+			while (createdWindow->pollEvent(event))
+				if (event.type == sf::Event::Closed)
+					createdWindow->close();
+		}
+	});
+	windowEventsHandler.detach();
+	while ( returnedWindow == nullptr );
+	returnedWindow->setActive(true);
+	return returnedWindow;
 }
 

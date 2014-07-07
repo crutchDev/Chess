@@ -21,7 +21,6 @@ GameManager::~GameManager() {
 void GameManager::gameActivity() {
 	communicator->start();
 	while ( communicator->isExist() ) {
-		communicator->handleEvents();
 
 		communicator->showBoard(board);
 		//white->step(communicator);

@@ -16,7 +16,6 @@ public:
 	virtual ChessboardPos selectPosToMove(set < ChessboardPos >&& allowedMoves ) = 0;
 	virtual void introducePlayerStep(Player* plr) = 0;
 	virtual bool isExist() = 0;
-	virtual void handleEvents() = 0;
 	virtual void start() = 0;
 	virtual void showBoard(Chessboard* board);
 };

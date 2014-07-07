@@ -24,13 +24,14 @@ public:
 	//void drawPlayWindow();
 	//vector < sf::Shape* > getFieldSquares();
 	virtual bool isExist();
-	virtual void handleEvents();
 	virtual void start();
 	virtual void showBoard(Chessboard* board);
 
 
 private:
+	sf::RenderWindow* createWindowAndWindowHandlerThread() const ;
 	map< short , sf::Texture >* fillTextures() ;
+
 	sf::RenderWindow* playWindow;	
 	int xWindowSize;
 	int yWindiwSize;
