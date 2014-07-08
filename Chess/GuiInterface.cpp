@@ -6,8 +6,8 @@
 #define WINDOW_NAME "Awesome Chess"
 #define WINDOW_ICON "res\\icon.png"
 #define CELL_SIDE_SIZE 80
-#define  CHAR_SIZ 50
-#define  MAX_NAMELENGTH 10
+#define CHAR_SIZ 50
+#define MAX_NAMELENGTH 10
 using namespace sf;
 
 
@@ -51,13 +51,15 @@ std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 					reqestWindow.close();
 					return playerName;
 				}
-				if (event.key.code == Keyboard::BackSpace) {
-					if (playerName.length() > 0){
-						playerName = playerName.substr(0, playerName.length() - 1);
-						text.setString(welcomeMessage + playerName);
-					}
-				}
 			}
+			if (event.type == sf::Event::KeyPressed && event.key.code == Keyboard::BackSpace) {
+				if (playerName.length() > 0){
+					playerName = playerName.substr(0, playerName.length() - 1);
+					text.setString(welcomeMessage + playerName);
+				}
+				continue;
+			}
+
 			if (event.type == sf::Event::TextEntered &&
 				isalnum(static_cast<char>(event.text.unicode))) {
 				if (playerName.length() < MAX_NAMELENGTH)
@@ -75,7 +77,6 @@ std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 }
 
 Figure* GuiInterface::selectFigure(vector<Figure*> from) {
-	
 	while (true) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
@@ -91,14 +92,12 @@ Figure* GuiInterface::selectFigure(vector<Figure*> from) {
 
 }
 
-ChessboardPos GuiInterface::selectPosToMove(set< ChessboardPos >&& allowedMoves)
-{
-	while (true)
-	{
+ChessboardPos GuiInterface::selectPosToMove(set< ChessboardPos >&& allowedMoves) {
+	while (true) 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
 			ChessboardPos boardPos = getBoardPosFromMousePos(pos);
-			if (binary_search(allowedMoves.begin(),allowedMoves.end(),boardPos)) {
+			if ( allowedMoves.end() !=  find(allowedMoves.begin(),allowedMoves.end(),boardPos)) {
 				cout << "you chose to go to: " << boardPos << endl;
 				return boardPos;
 			}
@@ -106,8 +105,7 @@ ChessboardPos GuiInterface::selectPosToMove(set< ChessboardPos >&& allowedMoves)
 	}
 }
 
-void GuiInterface::introducePlayerStep(Player* plr)
-{
+void GuiInterface::introducePlayerStep(Player* plr) {
 	string message = ", now it's your turn";
 	//in new window
 	sf::Font font;

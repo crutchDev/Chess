@@ -88,18 +88,60 @@ public:
 		return colorSchemeRep() + "_" + "R";
 	}
 
-
 	virtual void calcNewAllowedMoves() {
 		allowedMoves.clear();
-		int num = currntPos.number, letter = currntPos.letter;
-		int i = 0;
-		while (isGoodCell(ChessboardPos(letter, i))) {
-			addCell(letter, i++);
+		if ( currntPos.number != MAX_INDEX) {
+			for ( auto vertical = currntPos.number + 1 ; vertical <= MAX_INDEX ; vertical++ ) {
+				ChessboardPos pos(currntPos.letter,vertical);
+				if ( (*board)[pos] == nullptr  ) 
+					allowedMoves.insert(pos); 
+				else {
+					if ( (*board)[pos]->getColor() != this->getColor() )
+						allowedMoves.insert(pos); 
+					break;
+				}
+			}
 		}
-		i = 0;
-		while (isGoodCell(ChessboardPos(i,num))){
-			addCell(letter, i++);
+
+		if ( currntPos.number != 0) {
+			for ( auto vertical = currntPos.number - 1; vertical >= 0 ; vertical-- ) {
+				ChessboardPos pos(currntPos.letter,vertical);
+				if ( (*board)[pos] == nullptr  ) 
+					allowedMoves.insert(pos); 
+				else {
+					if ( (*board)[pos]->getColor() != this->getColor() )
+						allowedMoves.insert(pos); 
+					break;
+				}
+			}
 		}
+
+		if ( currntPos.letter != MAX_INDEX) {
+			for ( int horizontal = currntPos.letter + 1; horizontal <= MAX_INDEX  ; horizontal++ ) {
+				ChessboardPos pos(horizontal,currntPos.number);
+				if ( (*board)[pos] == nullptr  ) 
+					allowedMoves.insert(pos); 
+				else {
+					if ( (*board)[pos]->getColor() != this->getColor() )
+						allowedMoves.insert(pos); 
+					break;
+				}
+			}
+		}
+
+		if ( currntPos.letter != 0 ) {
+			for ( int horizontal = currntPos.letter - 1 ; horizontal >= 0 ; horizontal-- ) {
+				ChessboardPos pos(horizontal,currntPos.number);
+				if ( (*board)[pos] == nullptr  ) 
+					allowedMoves.insert(pos); 
+				else {
+					if ( (*board)[pos]->getColor() != this->getColor() )
+						allowedMoves.insert(pos); 
+					break;
+				}
+			}
+		}
+
 	}
 
 	virtual short hashCode() {
