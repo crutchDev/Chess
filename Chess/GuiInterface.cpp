@@ -30,23 +30,50 @@ GuiInterface::~GuiInterface() {
 }
 
 std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
+	//create window
 	return "";
 }
 
-Figure* GuiInterface::selectFigure(vector<Figure*> from)
-{
-	throw std::logic_error("The method or operation is not implemented.");
+Figure* GuiInterface::selectFigure(vector<Figure*> from) {
+	
+	while (true) {
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
+			ChessboardPos boardPos = getBoardPosFromMousePos(pos);
+			//cout << boardPos << endl;
+			auto findRes = find_if(from.begin(), from.end(), [&](Figure* f) -> bool { return f->posWhereLocated() == boardPos; });
+			if (findRes != from.end() && (*findRes)->canMove()) {
+				cout << "hooray\n";
+				//check if figure has moves available, else show error
+				return *findRes;
+			}
+		}
+	}
+
 }
 
 ChessboardPos GuiInterface::selectPosToMove(set< ChessboardPos >&& allowedMoves)
 {
-	throw std::logic_error("The method or operation is not implemented.");
+	while (true)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
+			ChessboardPos boardPos = getBoardPosFromMousePos(pos);
+			if (binary_search(allowedMoves.begin(),allowedMoves.end(),boardPos)) {
+				cout << "you chose to go to: " << boardPos << endl;
+				return boardPos;
+			}
+		}
+	}
 }
 
 void GuiInterface::introducePlayerStep(Player* plr)
 {
+	//in new window
 	throw std::logic_error("The method or operation is not implemented.");
 }
+
+
 
 //void GuiInterface::drawPlayWindow() {
 //
@@ -176,5 +203,9 @@ RenderWindow* GuiInterface::createWindowAndWindowHandlerThread() const {
 	while ( returnedWindow == nullptr );
 	returnedWindow->setActive(true);
 	return returnedWindow;
+}
+
+ChessboardPos GuiInterface::getBoardPosFromMousePos(sf::Vector2i pos) {
+	return ChessboardPos(pos.x / CELL_SIDE_SIZE, MAX_INDEX - ( pos.y / CELL_SIDE_SIZE));
 }
 

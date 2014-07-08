@@ -8,6 +8,7 @@
 
 GameManager::GameManager(GameInterface* comm) : communicator(comm) {
 	board = new Chessboard();
+	//new window creation here
 	white = new Player(WHITE,board, communicator->requestPlayerNameForColor(WHITE));
 	black = new Player(BLACK,board, communicator->requestPlayerNameForColor(BLACK));
 }
@@ -23,17 +24,20 @@ void GameManager::gameActivity() {
 	while ( communicator->isExist() ) {
 
 		communicator->showBoard(board);
-		//white->step(communicator);
-		//if ( black->gameOver() ) {
-		//	achivement(white);
-		//	break;
-		//}
-		//communicator->showBoard(board);
-		//black->step(communicator);
-		//if ( white->gameOver() ) {
-		//	achivement(black);
-		//	break;
-		//}
+//		Figure* selectedFigure = communicator->selectFigure(black->getFigures());
+//		cout << selectedFigure->getStringSchematicRep() << endl;
+		
+		white->step(communicator);
+		if ( black->gameOver() ) {
+			achivement(white);
+			break;
+		}
+		communicator->showBoard(board);
+		black->step(communicator);
+		if ( white->gameOver() ) {
+			achivement(black);
+			break;
+		}
 	}
 
 }
@@ -94,8 +98,3 @@ void GameManager::gameActivity() {
 //	} while ( true ) ;
 //
 //}
-
-
-void GameInterface::showBoard(Chessboard* board) {
-	throw std::logic_error("The method or operation is not implemented.");
-}

@@ -28,37 +28,48 @@ void Chessboard::foreach(function<void (Figure*)> func) {
 			func(board[letterScaleIter][numberScaleIter]);
 }
 
-//void Chessboard::outBoard(ostream& out) {
-//	for ( auto numberScaleIter = MAX_INDEX ; numberScaleIter >= 0 ; numberScaleIter-- ) {
-//		out << "-" << numberScaleIter + 1 << "- ";
-//		for ( auto letterScaleIter = 0 ; letterScaleIter <= MAX_INDEX ; letterScaleIter++ ) 
-//			if ( board[letterScaleIter][numberScaleIter] != nullptr )
-//				out << board[letterScaleIter][numberScaleIter]->getStringSchematicRep() << " "; 
-//			else 
-//				out << "[0]" << " "; 
-//		out << endl;
-//	}
-//	out << "    ";
-//	for ( char ch = 'A' ; ch <= 'H' ; ch++ ) {
-//		out << "-" << ch << "- ";
-//	}
-//	out << endl;
-//}
+void Chessboard::foreach(function<void(Figure*)> func, ::Color c) {
+	for (auto numberScaleIter = MAX_INDEX; numberScaleIter >= 0; numberScaleIter--)
+		for (auto letterScaleIter = 0; letterScaleIter <= MAX_INDEX; letterScaleIter++)
+			if (board[letterScaleIter][numberScaleIter] != nullptr &&
+				board[letterScaleIter][numberScaleIter]->getColor() == c) 
+			{
+				func(board[letterScaleIter][numberScaleIter]);
+			}
+}
+
+void Chessboard::outBoard(ostream& out) {
+	for ( auto numberScaleIter = MAX_INDEX ; numberScaleIter >= 0 ; numberScaleIter-- ) {
+		out << "-" << numberScaleIter + 1 << "- ";
+		for ( auto letterScaleIter = 0 ; letterScaleIter <= MAX_INDEX ; letterScaleIter++ ) 
+			if ( board[letterScaleIter][numberScaleIter] != nullptr )
+				out << board[letterScaleIter][numberScaleIter]->getStringSchematicRep() << " "; 
+			else 
+				out << "[0]" << " "; 
+		out << endl;
+	}
+	out << "    ";
+	for ( char ch = 'A' ; ch <= 'H' ; ch++ ) {
+		out << "-" << ch << "- ";
+	}
+	out << endl;
+}
 
 // ChessboardPos
 
 ChessboardPos::ChessboardPos(int letterNumb, int numb) {
-	if ( letterNumb < 0 || letterNumb > MAX_INDEX )
-		throw invalid_argument("Invalid pos letter number.");
-	if ( numb < 0 || numb > MAX_INDEX )
-		throw invalid_argument("Invalid pos number.");
-	letter = CharCoord(letterNumb);
-	number = numb;
+	if (letterNumb < 0 || letterNumb > MAX_INDEX || numb < 0 || numb > MAX_INDEX )
+		number = -1;
+	else  {
+		number = numb;
+		letter = CharCoord(letterNumb);
+	}
+	
 }
 
 ChessboardPos::ChessboardPos(CharCoord letter,int number) : letter(letter),number(number) {
-	if ( number < 0 || number > MAX_INDEX )
-		throw invalid_argument("Invalid pos number.");
+	if (number < 0 || number > MAX_INDEX)
+		number = -1;
 }
 
 

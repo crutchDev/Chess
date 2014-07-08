@@ -89,7 +89,8 @@ public:
 	Figure*& Chessboard::operator[](ChessboardPos pos);
 	void putFigureToPos(Figure* figr);
 	void foreach(function<void (Figure*)> func);
-	
+	void foreach(function<void(Figure*)> func, ::Color c);
+
 	/*void foreachWhite(function<void (Figure*)> func);
 	void foreachBlack(function<void (Figure*)> func);*/
 
@@ -102,7 +103,7 @@ public:
 
 
 	// for test only 
-	//void outBoard(ostream& o);
+	void outBoard(ostream& o);
 
 private:
 	// first coordinate - letter 

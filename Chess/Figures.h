@@ -6,7 +6,7 @@
 
 class King : public Figure {
 public :
-	King(Chessboard* b, Color c, ChessboardPos pos) : Figure(b, c, pos) {}
+	King(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
 	bool isAttacked() {
 		// TODO
@@ -19,11 +19,12 @@ public :
 	}
 
 	virtual void calcNewAllowedMoves() {
-			int num = currntPos.number, letter = currntPos.letter;
-			for (int i = -1; i <= 1; i++){
-				for (int j = -1; j <= 1; j++)
-					addCell(letter + i, num + j);
-			}
+		allowedMoves.clear();
+		int num = currntPos.number, letter = currntPos.letter;
+		for (int i = -1; i <= 1; i++){
+			for (int j = -1; j <= 1; j++)
+				addCell(letter + i, num + j);
+		}
 
 	}
 
@@ -36,7 +37,7 @@ public :
 
 class Pawn : public Figure {
 public:
-	Pawn(Chessboard* b, Color c, ChessboardPos pos) : Figure(b, c, pos) {}
+	Pawn(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
 	void Transform() {
 		//TODO
@@ -48,6 +49,7 @@ public:
 
 
 	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
 		int num = currntPos.number, letter = currntPos.letter;
 		if (num == 2 && colorSchemeRep() == "W" || num == MAX_INDEX - 1 && colorSchemeRep() == "B"){
 			allowedMoves.emplace((int)currntPos.letter, currntPos.number + 2);
@@ -79,7 +81,7 @@ public:
 
 class Rook : public Figure {
 public:
-	Rook(Chessboard* b, Color c, ChessboardPos pos) : Figure(b, c, pos) {}
+	Rook(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
 	
 	virtual string getStringSchematicRep() const {
@@ -88,10 +90,20 @@ public:
 
 
 	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
 		int num = currntPos.number, letter = currntPos.letter;
-		for (int i = 0; i <= MAX_INDEX; i++){
+		/*for (int i = 0; i <= MAX_INDEX; i++){
 			addCell(letter,i);
 			addCell(i, num);
+		}
+		*/
+		int i = 0;
+		while (isGoodCell(ChessboardPos(letter, i))) {
+			addCell(letter, i++);
+		}
+		i = 0;
+		while (isGoodCell(ChessboardPos(i,num))){
+			addCell(letter, i++);
 		}
 	}
 
@@ -102,7 +114,7 @@ public:
 
 class Queen : public Figure {
 public:
-	Queen(Chessboard* b, Color c, ChessboardPos pos) : Figure(b, c, pos) {}
+	Queen(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "Q";
@@ -110,6 +122,7 @@ public:
 
 
 	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
 		int num = currntPos.number, letter = currntPos.letter;
 		//straight lines
 		for (int i = 0; i <= MAX_INDEX; i++){
@@ -129,13 +142,14 @@ public:
 
 class Bishop : public Figure {
 public:
-	Bishop(Chessboard* b, Color c, ChessboardPos pos) : Figure(b, c, pos) {}
+	Bishop(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "B";
 	}
 
 	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
 		int num = currntPos.number, letter = currntPos.letter;
 		//straight lines
 		for (int i = 0; i <= MAX_INDEX; i++){
@@ -154,13 +168,14 @@ public:
 
 class Horse : public Figure{
 public:
-	Horse(Chessboard* b, Color c, ChessboardPos pos) : Figure(b, c, pos) {}
+	Horse(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "H";
 	}
 
 	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
 		int num = currntPos.number, letter = currntPos.letter;
 		for (int i = -2; i <= 2; i++){
 			if (i == 0) continue;

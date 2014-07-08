@@ -15,11 +15,10 @@ void Figure::move(ChessboardPos& pos) {
 	(*board)[pos] = this; 
 	(*board)[currntPos] = nullptr; 
 	currntPos = pos;
-	calcNewAllowedMoves();
 }
 
 bool Figure::isGoodCell(ChessboardPos pos) {
-	if ( !(pos.letter > MAX_INDEX || pos.number > MAX_INDEX || pos.number < 0) ) 
+	if (!pos.isImagine())
 		if ((*board)[pos] == nullptr || (*board)[pos]->getColor() != this->getColor() ) {
 			return true;
 		}

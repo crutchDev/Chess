@@ -5,7 +5,7 @@
 #include "chessInclude.h"
 
 #include <sstream>
-
+#include <iostream>
 #define ROOK_SYMMETRIC_SHIFT 0 
 #define HORSE_SYMETRIC_SHIFT 1
 #define BISHOP_SYMMETRIC_SHIFT 2
@@ -40,20 +40,20 @@ void Player::initFigures(ChessboardPos corner,bool direction) {
 	int	pawnNumbCoord = corner.number;
 	pawnNumbCoord += (direction)?(1):(-1);
 
-	board->putFigureToPos(new Rook(board, team, ChessboardPos(corner.letter + ROOK_SYMMETRIC_SHIFT, corner.number)));
-	board->putFigureToPos(new Rook(board, team, ChessboardPos(corner.letter + MAX_INDEX - ROOK_SYMMETRIC_SHIFT, corner.number)));
+	board->putFigureToPos(storeFigure(new Rook(board, team, ChessboardPos(corner.letter + ROOK_SYMMETRIC_SHIFT, corner.number))));
+	board->putFigureToPos(storeFigure(new Rook(board, team, ChessboardPos(corner.letter + MAX_INDEX - ROOK_SYMMETRIC_SHIFT, corner.number))));
 
-	board->putFigureToPos(new Horse(board, team, ChessboardPos(corner.letter + HORSE_SYMETRIC_SHIFT, corner.number)));
-	board->putFigureToPos(new Horse(board, team, ChessboardPos(corner.letter + MAX_INDEX - HORSE_SYMETRIC_SHIFT, corner.number)));
+	board->putFigureToPos(storeFigure(new Horse(board, team, ChessboardPos(corner.letter + HORSE_SYMETRIC_SHIFT, corner.number))));
+	board->putFigureToPos(storeFigure(new Horse(board, team, ChessboardPos(corner.letter + MAX_INDEX - HORSE_SYMETRIC_SHIFT, corner.number))));
 
-	board->putFigureToPos(new Bishop(board, team, ChessboardPos(corner.letter + BISHOP_SYMMETRIC_SHIFT, corner.number)));
-	board->putFigureToPos(new Bishop(board, team, ChessboardPos(corner.letter + MAX_INDEX - BISHOP_SYMMETRIC_SHIFT, corner.number)));
+	board->putFigureToPos(storeFigure(new Bishop(board, team, ChessboardPos(corner.letter + BISHOP_SYMMETRIC_SHIFT, corner.number))));
+	board->putFigureToPos(storeFigure(new Bishop(board, team, ChessboardPos(corner.letter + MAX_INDEX - BISHOP_SYMMETRIC_SHIFT, corner.number))));
 
-	board->putFigureToPos(new Queen(board, team, ChessboardPos(corner.letter + QUEEN_RELATIVE_LEFT_CORNER_SHIFT, corner.number)));
-	board->putFigureToPos(new King(board, team, ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT, corner.number)));
+	board->putFigureToPos(storeFigure(new Queen(board, team, ChessboardPos(corner.letter + QUEEN_RELATIVE_LEFT_CORNER_SHIFT, corner.number))));
+	board->putFigureToPos(storeFigure(new King(board, team, ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT, corner.number))));
 
 	for ( int i = 0 ; i <= MAX_INDEX ; i++) {
-		board->putFigureToPos(new Pawn(board, team, ChessboardPos(CharCoord(i), pawnNumbCoord)));
+		board->putFigureToPos(storeFigure(new Pawn(board, team, ChessboardPos(CharCoord(i), pawnNumbCoord))));
 	}	
 }
 
@@ -69,10 +69,19 @@ bool Player::gameOver() {
 void Player::step(GameInterface* communicator) {
 	Figure* movFigure;
 	ChessboardPos newPos;
+	
+	board->foreach([](Figure* f) -> void {
+		std::cout << f->posWhereLocated();
+		f->calcNewAllowedMoves();
+	}, team);
 
 	movFigure = communicator->selectFigure(figures);	
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
+	cout << movFigure->posWhereLocated() << endl;
+	cout << newPos << endl;
 	movFigure->move(newPos);
+	cout << "moved\n";
+	board->outBoard(cout);
 
 }
 

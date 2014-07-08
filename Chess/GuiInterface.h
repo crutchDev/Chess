@@ -31,6 +31,7 @@ public:
 private:
 	sf::RenderWindow* createWindowAndWindowHandlerThread() const ;
 	map< short , sf::Texture >* fillTextures() ;
+	ChessboardPos getBoardPosFromMousePos(sf::Vector2i pos);
 
 	sf::RenderWindow* playWindow;	
 	int xWindowSize;

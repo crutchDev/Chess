@@ -16,6 +16,7 @@ public:
 	virtual ~Figure();
 
 	bool canMove(ChessboardPos& pos) const ;
+	bool canMove() const { return allowedMoves.size() != 0; }
 	set< ChessboardPos > getAllowedMove() { return allowedMoves; }
 	::Color getColor() { return clr; }
 	Chessboard* boardWhereLocated() const { return board; }
@@ -31,6 +32,7 @@ public:
 	// K - king  ; P - pawn   ; R - rook 
 	// Q - queen ; B - bishop ; H - horse 
 	virtual string getStringSchematicRep() const = 0;
+	virtual void calcNewAllowedMoves() = 0;
 
 	// hash code is two bytes 
 	// first is color 00001111 - white 11110000 - black
@@ -52,7 +54,6 @@ protected:
 	void addCell(int letter, int num);
 	bool isGoodCell(ChessboardPos pos);
 
-	virtual void calcNewAllowedMoves() = 0;
 	
 	::Color clr;
 	Chessboard* board;
