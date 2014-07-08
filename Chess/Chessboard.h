@@ -19,7 +19,7 @@ struct ChessboardPos {
 	bool operator==(const ChessboardPos& pos) const;
 	bool operator<(const ChessboardPos& pos) const;
 	bool operator>(const ChessboardPos& pos) const ;
-	bool isImagine() ;
+	bool isImagine() const { return number == -1; };
 	void makeImagine() { number = -1; }
 
 	friend ostream& operator<<(ostream&,ChessboardPos&);	

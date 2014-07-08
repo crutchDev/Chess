@@ -91,10 +91,6 @@ bool ChessboardPos::operator>(const ChessboardPos& pos) const {
 	return number > pos.number;
 }
 
-bool ChessboardPos::isImagine() {
-	return number == -1;
-}
-
 ostream& operator<<(ostream& out,ChessboardPos& pos) {
 	out << "[" << (char) (pos.letter + 65) << "," << pos.number + 1 << "]";
 	return out;
