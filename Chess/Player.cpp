@@ -74,7 +74,7 @@ void Player::step(GameInterface* communicator) {
 		std::cout << f->posWhereLocated();
 		f->calcNewAllowedMoves();
 	}, team);
-
+	communicator->introducePlayerStep(this);
 	movFigure = communicator->selectFigure(figures);	
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
 	cout << movFigure->posWhereLocated() << endl;

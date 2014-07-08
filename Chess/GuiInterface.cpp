@@ -6,7 +6,8 @@
 #define WINDOW_NAME "Awesome Chess"
 #define WINDOW_ICON "res\\icon.png"
 #define CELL_SIDE_SIZE 80
-
+#define  CHAR_SIZ 50
+#define  MAX_NAMELENGTH 10
 using namespace sf;
 
 
@@ -31,19 +32,22 @@ GuiInterface::~GuiInterface() {
 
 std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 	//create window
-	sf::RenderWindow reqestWindow(sf::VideoMode(600, 200), "enter name:");
+	string welcomeMessage = (clr == BLACK) ? "Black" : "White";
+	welcomeMessage += " player name:";
+
 	sf::Font font;
 	if (!font.loadFromFile("res\\fonts\\arial.ttf")) {
 		throw runtime_error("couldn't load font!\n");
 	}
-	string welcomeMessage = (clr == BLACK) ? "Black" : "White";
-	welcomeMessage += " player name:";
-	string playerName = "";
-	sf::Text text("Name:",font,40);
-	text.setFont(font);
-	
-	text.setString(welcomeMessage);
+
+	sf::Text text(welcomeMessage, font, CHAR_SIZ);
 	text.setColor(sf::Color::Red);
+
+	sf::RenderWindow reqestWindow(sf::VideoMode(text.getLocalBounds().width + 7 * CHAR_SIZ, CHAR_SIZ + 20), 
+		"Enter name:");
+	
+	string playerName = "";
+
 
 	while (reqestWindow.isOpen()){
 		sf::Event event;
@@ -51,14 +55,22 @@ std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 			if (event.type == sf::Event::Closed) {
 				reqestWindow.close();
 			}
-			if (event.type == sf::Event::KeyReleased
-				&& event.key.code == Keyboard::Return) {
-				reqestWindow.close();
-				return playerName;
+			if (event.type == sf::Event::KeyReleased){
+				if (event.key.code == Keyboard::Return) {
+					reqestWindow.close();
+					return playerName;
+				}
+				if (event.key.code == Keyboard::BackSpace) {
+					if (playerName.length() > 0){
+						playerName = playerName.substr(0, playerName.length() - 1);
+						text.setString(welcomeMessage + playerName);
+					}
+				}
 			}
 			if (event.type == sf::Event::TextEntered &&
-				static_cast<char>(event.text.unicode) != '\r') {
-				playerName += static_cast<char>(event.text.unicode);
+				isalnum(static_cast<char>(event.text.unicode))) {
+				if (playerName.length() < MAX_NAMELENGTH)
+					playerName += static_cast<char>(event.text.unicode);
 				text.setString(welcomeMessage + playerName);
 			}
 
@@ -106,8 +118,30 @@ ChessboardPos GuiInterface::selectPosToMove(set< ChessboardPos >&& allowedMoves)
 
 void GuiInterface::introducePlayerStep(Player* plr)
 {
+	string message = ", now it's your turn";
 	//in new window
-	throw std::logic_error("The method or operation is not implemented.");
+	sf::Font font;
+	if (!font.loadFromFile("res\\fonts\\arial.ttf")) {
+		throw runtime_error("couldn't load font!\n");
+	}
+	
+	sf::Text text(plr->getName() + message, font, CHAR_SIZ);
+	text.setFont(font);
+	text.setColor(sf::Color::Red);
+	sf::RenderWindow reqestWindow(sf::VideoMode(text.getLocalBounds().width, CHAR_SIZ + 20), "New turn");
+
+	sf::Clock c;
+	while (reqestWindow.isOpen() && (c.getElapsedTime().asSeconds() < 2)){
+		sf::Event event;
+		while (reqestWindow.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				reqestWindow.close();
+			}
+		}
+		reqestWindow.clear(sf::Color::Yellow);
+		reqestWindow.draw(text);
+		reqestWindow.display();
+	}
 }
 
 
