@@ -13,7 +13,7 @@
 #define KING_RELATIVE_LEFT_CORNER_SHIFT 4
 
 
-int Player::playerCounter = 0;
+int Player::playerCounter = 1;
 
 Player::Player(Color clr, Chessboard* board ,string name = "") : team(clr),board(board) {
 	if ( name.length() == 0 ) 
@@ -76,11 +76,15 @@ void Player::step(GameInterface* communicator) {
 	}, team);
 	communicator->introducePlayerStep(this);
 	movFigure = communicator->selectFigure(figures);	
+
+	cout << movFigure->getStringSchematicRep();
+	set < ChessboardPos > allowedM = movFigure->getAllowedMove();
+	cout << "allowed moves" << endl;
+	for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
+
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
-	cout << movFigure->posWhereLocated() << endl;
-	cout << newPos << endl;
 	movFigure->move(newPos);
-	cout << "moved\n";
+	//cout << "moved\n";
 	board->outBoard(cout);
 
 }
