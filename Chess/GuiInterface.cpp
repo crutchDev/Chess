@@ -31,6 +31,43 @@ GuiInterface::~GuiInterface() {
 
 std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 	//create window
+	sf::RenderWindow reqestWindow(sf::VideoMode(600, 200), "enter name:");
+	sf::Font font;
+	if (!font.loadFromFile("res\\fonts\\arial.ttf")) {
+		throw runtime_error("couldn't load font!\n");
+	}
+	string welcomeMessage = (clr == BLACK) ? "Black" : "White";
+	welcomeMessage += " player name:";
+	string playerName = "";
+	sf::Text text("Name:",font,40);
+	text.setFont(font);
+	
+	text.setString(welcomeMessage);
+	text.setColor(sf::Color::Red);
+
+	while (reqestWindow.isOpen()){
+		sf::Event event;
+		while (reqestWindow.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				reqestWindow.close();
+			}
+			if (event.type == sf::Event::KeyReleased
+				&& event.key.code == Keyboard::Return) {
+				reqestWindow.close();
+				return playerName;
+			}
+			if (event.type == sf::Event::TextEntered &&
+				static_cast<char>(event.text.unicode) != '\r') {
+				playerName += static_cast<char>(event.text.unicode);
+				text.setString(welcomeMessage + playerName);
+			}
+
+		}
+
+		reqestWindow.clear(sf::Color::Yellow);
+		reqestWindow.draw(text);
+		reqestWindow.display();
+	}
 	return "";
 }
 
