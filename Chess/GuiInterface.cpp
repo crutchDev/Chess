@@ -14,14 +14,6 @@ using namespace sf;
 GuiInterface::GuiInterface(const VideoMode& vm ) : playWindow(nullptr) {
 	xWindowSize = vm.width;
 	yWindiwSize = vm.height;
-	//thread escHandler([&] () {
-	//	while ( true ) {
-	//		if ( Keyboard::isKeyPressed(Keyboard::Escape) ) {
-	//			exit(EXIT_SUCCESS);
-	//		}
-	//	}
-	//});
-	//escHandler.detach();
 }
 
 
@@ -31,7 +23,6 @@ GuiInterface::~GuiInterface() {
 }
 
 std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
-	//create window
 	string welcomeMessage = (clr == BLACK) ? "Black" : "White";
 	welcomeMessage += " player name:";
 
@@ -89,7 +80,6 @@ Figure* GuiInterface::selectFigure(vector<Figure*> from) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
 			ChessboardPos boardPos = getBoardPosFromMousePos(pos);
-			//cout << boardPos << endl;
 			auto findRes = find_if(from.begin(), from.end(), [&](Figure* f) -> bool { return f->posWhereLocated() == boardPos; });
 			if (findRes != from.end() && (*findRes)->canMove()) {
 				cout << "hooray\n";
@@ -144,54 +134,6 @@ void GuiInterface::introducePlayerStep(Player* plr)
 	}
 }
 
-
-
-//void GuiInterface::drawPlayWindow() {
-//
-//	playWindow = new RenderWindow(VideoMode(xWindowSize,yWindiwSize),"Game");
-//	RectangleShape fieldFiller(Vector2f( (float)xWindowSize, (float)yWindiwSize));
-//	fieldFiller.setFillColor(sf::Color::Blue);
-//	
-//	vector < Shape* > squares = getFieldSquares();
-//
-//	while (playWindow->isOpen()) {
-//		sf::Event event;
-//		while (playWindow->pollEvent(event))
-//		{
-//			if (event.type == sf::Event::Closed)
-//				playWindow->close();
-//		}
-//		playWindow->clear();
-//		playWindow->draw(fieldFiller);
-//		for_each(squares.begin(),squares.end(), [&] (Shape* shp)->void {
-//			playWindow->draw(*shp);
-//		});
-//
-//		playWindow->display();
-//	}
-//
-//	for_each(squares.begin(),squares.end(), [&] (Shape* shp)->void {
-//		delete shp;
-//	});
-//}
-
-//vector < Shape* > GuiInterface::getFieldSquares() {
-//	vector < Shape* > retVect; 
-//	RectangleShape* addedRect;
-//	Vector2f outPos(80,540);
-//	for ( auto i = 0; i <= MAX_INDEX; i++ ) {
-//		for (auto j = 0 ; j <= MAX_INDEX; j++ ) {
-//			addedRect = new RectangleShape(Vector2f(80,80));
-//			addedRect->setPosition(outPos);
-//			addedRect->setFillColor( ((i + j)%2 == 0 )?(sf::Color::Black):(sf::Color::White ) );
-//			retVect.push_back(addedRect);	
-//			outPos.x += 80;
-//		}
-//		outPos.y -= 80;
-//		outPos.x = 80;
-//	}
-//	return retVect;
-//}
 
 bool GuiInterface::isExist() {
 	return playWindow->isOpen();

@@ -21,8 +21,6 @@ public:
 	virtual Figure* selectFigure(vector<Figure*> from);
 	virtual ChessboardPos selectPosToMove(set< ChessboardPos >&& allowedMoves);
 	virtual void introducePlayerStep(Player* plr);
-	//void drawPlayWindow();
-	//vector < sf::Shape* > getFieldSquares();
 	virtual bool isExist();
 	virtual void start();
 	virtual void showBoard(Chessboard* board);

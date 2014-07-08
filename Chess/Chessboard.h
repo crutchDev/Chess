@@ -91,9 +91,6 @@ public:
 	void foreach(function<void (Figure*)> func);
 	void foreach(function<void(Figure*)> func, ::Color c);
 
-	/*void foreachWhite(function<void (Figure*)> func);
-	void foreachBlack(function<void (Figure*)> func);*/
-
 	Iterator getIterator() {
 		return Iterator(this);
 	}

@@ -20,14 +20,6 @@ public:
 	virtual void showBoard(Chessboard* board) = 0;
 };
 
-// class ConsoleInterface : public GameInterface {
-//public:
-//	virtual string requestPlayerNameForColor(::Color clr);
-//	virtual Figure* selectFigure(vector<Figure*> from);
-//	virtual ChessboardPos selectPosToMove(set < ChessboardPos >&& allowedMoves );
-//	virtual void introducePlayerStep(Player* plr);
-//};
-//
 class GameManager {
 public:
 	GameManager(GameInterface* communicator);

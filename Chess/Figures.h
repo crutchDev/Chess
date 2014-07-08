@@ -92,11 +92,6 @@ public:
 	virtual void calcNewAllowedMoves() {
 		allowedMoves.clear();
 		int num = currntPos.number, letter = currntPos.letter;
-		/*for (int i = 0; i <= MAX_INDEX; i++){
-			addCell(letter,i);
-			addCell(i, num);
-		}
-		*/
 		int i = 0;
 		while (isGoodCell(ChessboardPos(letter, i))) {
 			addCell(letter, i++);
