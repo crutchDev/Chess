@@ -61,6 +61,8 @@ int main ()  {
 	GameManager manager(&gIface);
 	manager.gameActivity();
 
+
+
 		
 	return 0;
 }

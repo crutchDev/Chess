@@ -86,7 +86,9 @@ void Player::step(GameInterface* communicator) {
 }
 
 Player::~Player() {
-
+	for_each(figures.begin(),figures.end(),[] (Figure* fig)->void {
+		delete fig;
+	});
 }
 
 
