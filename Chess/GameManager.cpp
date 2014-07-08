@@ -8,7 +8,6 @@
 
 GameManager::GameManager(GameInterface* comm) : communicator(comm) {
 	board = new Chessboard();
-	//new window creation here
 	white = new Player(WHITE,board, communicator->requestPlayerNameForColor(WHITE));
 	black = new Player(BLACK,board, communicator->requestPlayerNameForColor(BLACK));
 }
@@ -23,10 +22,7 @@ void GameManager::gameActivity() {
 	communicator->start();
 	while ( communicator->isExist() ) {
 
-		communicator->showBoard(board);
-//		Figure* selectedFigure = communicator->selectFigure(black->getFigures());
-//		cout << selectedFigure->getStringSchematicRep() << endl;
-		
+		communicator->showBoard(board);		
 		white->step(communicator);
 		if ( black->gameOver() ) {
 			achivement(white);
@@ -41,60 +37,3 @@ void GameManager::gameActivity() {
 	}
 
 }
-
-
-
-
-
-
-//std::string ConsoleInterface::requestPlayerNameForColor(Color clr) {
-//	cout << "Please, enter name for " << ((clr == WHITE)?("white"):("black")) << " player : ";
-//	string name;
-//	cin >> name;
-//	return name;
-//}
-//
-//
-//void ConsoleInterface::introducePlayerStep(Player* plr) {
-//	cout << plr->getName() << " now is your turn." << endl;
-//}
-//
-//Figure* ConsoleInterface::selectFigure(vector<Figure*> from) {
-//	cout << "Next figures are available : " << endl;
-//	for_each(from.begin(),from.end(),[]( Figure* fig )->void { 
-//		cout << fig->posWhereLocated() << " " ;
-//	}   );
-//	cout << endl;
-//	ChessboardPos selectedPos;
-//
-//	do {
-//		cout << "Please, select one figure by position (example  [A,1]) : " ;
-//		try {
-//			cin >> selectedPos;
-//			auto figIter = find_if(from.begin(),from.end(), [&] (Figure* fig)->bool {  return selectedPos == fig->posWhereLocated(); } );
-//			if ( figIter != from.end())
-//				return *figIter;
-//		}
-//		catch (...) {}
-//
-//		cout << "Selected position is invalid." << endl;
-//	} while ( true );
-//
-//}
-//
-//
-//ChessboardPos ConsoleInterface::selectPosToMove(set < ChessboardPos >&& allowedMoves ) {
-//
-//	ChessboardPos selectedPos;
-//	do {
-//		cout << "Please, select new position  (example  [A,1]) : " ;
-//		try {
-//			cin >> selectedPos;
-//			return selectedPos;
-//		}
-//		catch (...) {
-//			cout << "Selected position is invalid." << endl;
-//		}
-//	} while ( true ) ;
-//
-//}
