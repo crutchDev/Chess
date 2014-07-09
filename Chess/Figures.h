@@ -51,8 +51,8 @@ public:
 	virtual void calcNewAllowedMoves() {
 		allowedMoves.clear();
 		int num = currntPos.number, letter = currntPos.letter;
-		if (num == 2 && colorSchemeRep() == "W" || num == MAX_INDEX - 1 && colorSchemeRep() == "B"){
-			allowedMoves.emplace((int)currntPos.letter, currntPos.number + 2);
+		if (num == 1 && colorSchemeRep() == "W" || num == MAX_INDEX - 1 && colorSchemeRep() == "B"){
+			allowedMoves.insert(ChessboardPos((int)currntPos.letter, currntPos.number + 2));
 		}
 		addCell(letter, num + 1);
 
@@ -60,7 +60,7 @@ public:
 			ChessboardPos pos(letter - 1, num + 1);
 			if ((*board)[pos]){
 				if ((*board)[pos]->getColor() != this->getColor()){
-					allowedMoves.emplace(pos);
+					allowedMoves.insert(pos);
 				}
 			}
 		}
@@ -68,7 +68,7 @@ public:
 			ChessboardPos pos(letter + 1, num + 1);
 			if ((*board)[pos]){
 				if ((*board)[pos]->getColor() != this->getColor()){
-					allowedMoves.emplace(pos);
+					allowedMoves.insert(pos);
 				}
 			}
 		}

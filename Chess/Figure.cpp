@@ -27,9 +27,9 @@ bool Figure::isGoodCell(ChessboardPos pos) {
 
 void Figure::addCell(int letter, int num) {
 	if (isGoodCell(ChessboardPos(letter, num)))
-		allowedMoves.emplace(ChessboardPos(letter, num));
+		allowedMoves.insert(ChessboardPos(letter, num));
 }
 
 bool Figure::canMove(ChessboardPos& pos) const {
-	return allowedMoves.end() != find(allowedMoves.begin(),allowedMoves.end(),pos);
+	return binary_search(allowedMoves.begin(),allowedMoves.end(),pos);
 }

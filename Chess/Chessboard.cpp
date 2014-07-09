@@ -84,11 +84,13 @@ bool ChessboardPos::operator==(const ChessboardPos& pos) const {
 }
 
 bool ChessboardPos::operator<(const ChessboardPos& pos) const {
-	return number < pos.number;
+	return ( number * ( MAX_INDEX + 1) + (letter + 1) ) < 
+		   ( pos.number * (MAX_INDEX + 1) + (pos.letter + 1));
 }
 
 bool ChessboardPos::operator>(const ChessboardPos& pos) const {
-	return number > pos.number;
+	return ( number * ( MAX_INDEX + 1) + (letter + 1) ) > 
+		   ( pos.number * (MAX_INDEX + 1) + (pos.letter + 1));
 }
 
 ostream& operator<<(ostream& out,ChessboardPos& pos) {

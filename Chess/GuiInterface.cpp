@@ -97,7 +97,7 @@ ChessboardPos GuiInterface::selectPosToMove(set< ChessboardPos >&& allowedMoves)
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
 			ChessboardPos boardPos = getBoardPosFromMousePos(pos);
-			if ( allowedMoves.end() !=  find(allowedMoves.begin(),allowedMoves.end(),boardPos)) {
+			if ( binary_search(allowedMoves.begin(),allowedMoves.end(),boardPos)) {
 				cout << "you chose to go to: " << boardPos << endl;
 				return boardPos;
 			}
