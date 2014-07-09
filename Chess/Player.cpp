@@ -53,7 +53,12 @@ void Player::initFigures(ChessboardPos corner,bool direction) {
 	board->putFigureToPos(storeFigure(new King(board, team, ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT, corner.number))));
 
 	for ( int i = 0 ; i <= MAX_INDEX ; i++) {
-		board->putFigureToPos(storeFigure(new Pawn(board, team, ChessboardPos(CharCoord(i), pawnNumbCoord))));
+		Figure* fig = nullptr;
+		if ( team == WHITE ) 
+			fig = new WhitePawn(board,ChessboardPos(CharCoord(i), pawnNumbCoord));
+		else 
+			fig = new BlackPawn(board,ChessboardPos(CharCoord(i), pawnNumbCoord));
+		board->putFigureToPos(storeFigure(fig));
 	}	
 }
 

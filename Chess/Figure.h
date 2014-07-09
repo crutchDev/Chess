@@ -21,12 +21,16 @@ public:
 	::Color getColor() { return clr; }
 	Chessboard* boardWhereLocated() const { return board; }
 	ChessboardPos posWhereLocated() const { return currntPos; }
-	void setLocation(ChessboardPos newPos) { currntPos = newPos; } 
+	void setLocation(ChessboardPos& newPos) { currntPos = newPos; } 
 	void move(ChessboardPos& pos);
 	bool isDead() { return dead; }
-	bool isEnemy(ChessboardPos pos) { 
+	bool isEnemy(ChessboardPos& pos) { 
 		return (*board)[pos] != nullptr && (*board)[pos]->clr != this->clr;
-	};
+	}
+	bool isAlly(ChessboardPos& pos) {
+		return (*board)[pos] != nullptr && (*board)[pos]->clr == this->clr;
+	}
+
 
 	// test only 
 	// first letter it is color symbol W - white , B - black 

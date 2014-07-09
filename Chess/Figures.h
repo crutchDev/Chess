@@ -43,35 +43,57 @@ public:
 		return colorSchemeRep() + "_" + "P";
 	}
 
+	virtual short hashCode() {
+		return (short) ( PAWN_TYPE << 8) | clr;
+	}
 
-	virtual void calcNewAllowedMoves() {
-		allowedMoves.clear();
-		int num = currntPos.number, letter = currntPos.letter;
-		if (num == 1 && colorSchemeRep() == "W" || num == MAX_INDEX - 1 && colorSchemeRep() == "B"){
-			allowedMoves.insert(ChessboardPos((int)currntPos.letter, currntPos.number + 2));
-		}
-		addCell(letter, num + 1);
-
-		if (letter > 0 && num < MAX_INDEX){
-			ChessboardPos pos(letter - 1, num + 1);
-			if ((*board)[pos]){
-				if ((*board)[pos]->getColor() != this->getColor()){
-					allowedMoves.insert(pos);
-				}
-			}
-		}
-		if (letter < MAX_INDEX && num < MAX_INDEX){
-			ChessboardPos pos(letter + 1, num + 1);
-			if ((*board)[pos]){
-				if ((*board)[pos]->getColor() != this->getColor()){
-					allowedMoves.insert(pos);
-				}
-			}
+	void calcNewAllowedMoves() { }
+	
+protected:
+	void checkDiagonal(int verticalDirection,int horizontalDirection) {
+		ChessboardPos pos(currntPos.letter + horizontalDirection, currntPos.number + verticalDirection);
+		if ( !pos.isImagine() && this->isEnemy(pos) ) {
+			allowedMoves.insert(pos);
 		}
 	}
 
-	virtual short hashCode() {
-		return (short) ( PAWN_TYPE << 8) | clr;
+	void checkVertical(int doubleStepNumber,int verticalDirecion) {
+			ChessboardPos pos;
+			if ( !isAlly(pos = ChessboardPos(currntPos.letter,currntPos.number + verticalDirecion))) {
+			allowedMoves.insert(pos);			
+			if ( currntPos.number == doubleStepNumber 
+				 && !isAlly(pos = ChessboardPos(currntPos.letter,currntPos.number + 2*verticalDirecion))) 
+			{
+				allowedMoves.insert(pos);
+			}
+		} 
+	}
+
+};
+
+class WhitePawn : public Pawn {
+#define DOUBLE_STEP_WHITE_POS 1
+public:
+	WhitePawn(Chessboard* b, ChessboardPos pos) : Pawn(b,WHITE,pos) {}
+
+	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
+		checkVertical(DOUBLE_STEP_WHITE_POS,1);
+		checkDiagonal(1 ,-1);
+		checkDiagonal(1 , 1);
+	}
+};
+
+class BlackPawn : public Pawn {
+#define DOUBLE_STEP_BLACK_POS 6
+public:
+	BlackPawn(Chessboard* b, ChessboardPos pos) : Pawn(b,BLACK,pos) {}
+
+	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
+		checkVertical(DOUBLE_STEP_BLACK_POS,-1);
+		checkDiagonal(-1 ,-1);
+		checkDiagonal(-1 , 1);
 	}
 };
 
@@ -92,7 +114,7 @@ public:
 				if ( (*board)[pos] == nullptr  ) 
 					allowedMoves.insert(pos); 
 				else {
-					if ( (*board)[pos]->getColor() != this->getColor() )
+					if ( this->isEnemy(pos) )
 						allowedMoves.insert(pos); 
 					break;
 				}
@@ -105,7 +127,7 @@ public:
 				if ( (*board)[pos] == nullptr  ) 
 					allowedMoves.insert(pos); 
 				else {
-					if ( (*board)[pos]->getColor() != this->getColor() )
+					if ( this->isEnemy(pos) )
 						allowedMoves.insert(pos); 
 					break;
 				}
@@ -118,7 +140,7 @@ public:
 				if ( (*board)[pos] == nullptr  ) 
 					allowedMoves.insert(pos); 
 				else {
-					if ( (*board)[pos]->getColor() != this->getColor() )
+					if ( this->isEnemy(pos) )
 						allowedMoves.insert(pos); 
 					break;
 				}
@@ -131,7 +153,7 @@ public:
 				if ( (*board)[pos] == nullptr  ) 
 					allowedMoves.insert(pos); 
 				else {
-					if ( (*board)[pos]->getColor() != this->getColor() )
+					if ( this->isEnemy(pos) )
 						allowedMoves.insert(pos); 
 					break;
 				}
