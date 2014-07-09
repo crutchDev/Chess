@@ -12,7 +12,7 @@
 class Figure {
 public:
 
-	Figure(Chessboard* b, ::Color c, ChessboardPos pos) : board(b), clr(c),currntPos(pos) { };
+	Figure(Chessboard* b, ::Color c, ChessboardPos pos) : board(b), clr(c),currntPos(pos),dead(false) { };
 	virtual ~Figure();
 
 	bool canMove(ChessboardPos& pos) const ;
@@ -23,8 +23,10 @@ public:
 	ChessboardPos posWhereLocated() const { return currntPos; }
 	void setLocation(ChessboardPos newPos) { currntPos = newPos; } 
 	void move(ChessboardPos& pos);
-
-
+	bool isDead() { return dead; }
+	bool isEnemy(ChessboardPos pos) { 
+		return (*board)[pos] != nullptr && (*board)[pos]->clr != this->clr;
+	};
 
 	// test only 
 	// first letter it is color symbol W - white , B - black 
@@ -59,7 +61,7 @@ protected:
 	Chessboard* board;
 	ChessboardPos currntPos;
 	set < ChessboardPos > allowedMoves; 
-
+	bool dead;
 };
 
 #endif

@@ -39,10 +39,6 @@ class Pawn : public Figure {
 public:
 	Pawn(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
-	void Transform() {
-		//TODO
-	}
-
 	virtual string getStringSchematicRep() const {
 		return colorSchemeRep() + "_" + "P";
 	}

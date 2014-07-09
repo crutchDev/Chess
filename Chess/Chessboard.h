@@ -89,7 +89,7 @@ public:
 	Figure*& Chessboard::operator[](ChessboardPos pos);
 	void putFigureToPos(Figure* figr);
 	void foreach(function<void (Figure*)> func);
-	void foreach(function<void(Figure*)> func, ::Color c);
+	void foreach(function<void(Figure*)> func, ::Color c); 
 
 	Iterator getIterator() {
 		return Iterator(this);

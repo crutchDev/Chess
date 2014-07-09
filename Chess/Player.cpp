@@ -69,23 +69,32 @@ bool Player::gameOver() {
 void Player::step(GameInterface* communicator) {
 	Figure* movFigure;
 	ChessboardPos newPos;
-	
-	board->foreach([](Figure* f) -> void {
-		std::cout << f->posWhereLocated();
-		f->calcNewAllowedMoves();
-	}, team);
+
+	auto iter = figures.begin();
+	auto toDel = figures.end();
+	while ( iter != figures.end() ) {
+		if ( (*iter)->isDead() )
+			toDel = iter;
+		else 
+		    (*iter)->calcNewAllowedMoves();
+		iter++;
+	}
+	if ( toDel != figures.end() ) {
+		delete *toDel;
+		figures.erase(toDel);
+	}
 	communicator->introducePlayerStep(this);
 	movFigure = communicator->selectFigure(figures);	
 
-	cout << movFigure->getStringSchematicRep();
-	set < ChessboardPos > allowedM = movFigure->getAllowedMove();
-	cout << "allowed moves" << endl;
-	for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
+	//cout << movFigure->getStringSchematicRep();
+	//set < ChessboardPos > allowedM = movFigure->getAllowedMove();
+	//cout << "allowed moves" << endl;
+	//for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
 
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
 	movFigure->move(newPos);
 	//cout << "moved\n";
-	board->outBoard(cout);
+	//board->outBoard(cout);
 
 }
 

@@ -12,6 +12,8 @@ string Figure::colorSchemeRep() const {
 }
 
 void Figure::move(ChessboardPos& pos) {
+	if ( isEnemy(pos) ) 
+		(*board)[pos]->dead = true;
 	(*board)[pos] = this; 
 	(*board)[currntPos] = nullptr; 
 	currntPos = pos;

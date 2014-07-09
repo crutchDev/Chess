@@ -209,6 +209,7 @@ RenderWindow* GuiInterface::createWindowAndWindowHandlerThread() const {
 				if (event.type == sf::Event::Closed)
 					createdWindow->close();
 		}
+		exit(EXIT_SUCCESS);
 	});
 	windowEventsHandler.detach();
 	while ( returnedWindow == nullptr );
