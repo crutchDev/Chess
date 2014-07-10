@@ -16,5 +16,8 @@ public:
 protected:
 
 	void addDiagonals();
+
+private:
+	void calcDiagonal( int horizontalDirection,int verticalDirection );
 };
 #endif

@@ -220,4 +220,3 @@ RenderWindow* GuiInterface::createWindowAndWindowHandlerThread() const {
 ChessboardPos GuiInterface::getBoardPosFromMousePos(sf::Vector2i pos) {
 	return ChessboardPos(pos.x / CELL_SIDE_SIZE, MAX_INDEX - ( pos.y / CELL_SIDE_SIZE));
 }
-

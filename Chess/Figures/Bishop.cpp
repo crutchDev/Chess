@@ -2,14 +2,10 @@
 #include "../chessInclude.h"
 
 void Bishop::addDiagonals() {
-	int num = currntPos.number, letter = currntPos.letter;
-	//straight lines
-	for (int i = 0; i <= MAX_INDEX; i++){
-		addCell(letter - i, num - i);
-		addCell(letter + i, num + i);
-		addCell(letter + i, num - i);
-		addCell(letter - i, num + i);
-	}
+	calcDiagonal(1,1);
+	calcDiagonal(1,-1);
+	calcDiagonal(-1,1);
+	calcDiagonal(-1,-1);
 }
 
 short Bishop::hashCode() {
@@ -23,4 +19,23 @@ void Bishop::calcNewAllowedMoves() {
 
 std::string Bishop::getStringSchematicRep() const{
 	return colorSchemeRep() + "_" + "B";
+}
+
+void Bishop::calcDiagonal(int horizontalDirection,int verticalDirection) {
+	int verticalIter = currntPos.number + verticalDirection;
+	int horizontaIter = currntPos.letter + horizontalDirection;
+
+	while ( verticalIter <= MAX_INDEX && verticalIter >= 0 && 
+		horizontaIter <= MAX_INDEX && horizontaIter >= 0 ) {
+			ChessboardPos pos(horizontaIter,verticalIter);
+			if ( isAlly(pos)  ) 
+				break;
+			else {
+				allowedMoves.insert(pos);
+				if ( isEnemy(pos) )
+					break;
+			}
+			verticalIter += verticalDirection;
+			horizontaIter += horizontalDirection;
+	}
 }
