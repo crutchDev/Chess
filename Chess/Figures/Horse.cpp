@@ -13,7 +13,9 @@ void Horse::calcNewAllowedMoves() {
 		for (int j = -2; j <= 2; j++){
 			if (j == 0) continue;
 			if (abs(i) == abs(j)) continue;
-			addCell(letter + i, num + j);
+			ChessboardPos pos(letter + i, num + j);
+			if ( !(pos.isImagine() || isAlly(pos)) )
+				allowedMoves.insert(pos);
 		}
 	}
 }

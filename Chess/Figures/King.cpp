@@ -3,10 +3,12 @@
 
 void King::calcNewAllowedMoves() {
 	allowedMoves.clear();
-	int num = currntPos.number, letter = currntPos.letter;
-	for (int i = -1; i <= 1; i++){
-		for (int j = -1; j <= 1; j++)
-			addCell(letter + i, num + j);
+	for (int i = -1; i <= 1; i++) {
+		for (int j = -1; j <= 1; j++) {
+			ChessboardPos pos(currntPos.letter + i, currntPos.number + j);
+			if ( !(pos.isImagine() || isAlly(pos) )) 
+				allowedMoves.insert(pos);
+		}
 	}
 }
 

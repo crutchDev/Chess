@@ -19,19 +19,6 @@ void Figure::move(ChessboardPos& pos) {
 	currntPos = pos;
 }
 
-bool Figure::isGoodCell(ChessboardPos pos) {
-	if (!pos.isImagine())
-		if ( (*board)[pos] == nullptr || (*board)[pos]->getColor() != this->getColor() ) {
-			return true;
-		}
-	return false;
-}
-
-void Figure::addCell(int letter, int num) {
-	if (isGoodCell(ChessboardPos(letter, num)))
-		allowedMoves.insert(ChessboardPos(letter, num));
-}
-
 bool Figure::canMove(ChessboardPos& pos) const {
 	return binary_search(allowedMoves.begin(),allowedMoves.end(),pos);
 }

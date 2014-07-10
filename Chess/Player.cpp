@@ -91,10 +91,10 @@ void Player::step(GameInterface* communicator) {
 	communicator->introducePlayerStep(this);
 	movFigure = communicator->selectFigure(figures);	
 
-	//cout << movFigure->getStringSchematicRep();
-	//set < ChessboardPos > allowedM = movFigure->getAllowedMove();
-	//cout << "allowed moves" << endl;
-	//for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
+	cout << movFigure->getStringSchematicRep();
+	set < ChessboardPos > allowedM = movFigure->getAllowedMove();
+	cout << "allowed moves" << endl;
+	for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
 
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
 	movFigure->move(newPos);

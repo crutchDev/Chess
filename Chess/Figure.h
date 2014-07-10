@@ -57,8 +57,6 @@ public:
 
 protected:
 	string colorSchemeRep() const ;
-	void addCell(int letter, int num);
-	bool isGoodCell(ChessboardPos pos);
 
 	
 	::Color clr;
