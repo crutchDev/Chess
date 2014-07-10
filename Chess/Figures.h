@@ -3,6 +3,7 @@
 #define FIGURES_H
 
 #include "chessInclude.h"
+#include <iostream>
 
 class King : public Figure {
 public :
@@ -68,7 +69,6 @@ protected:
 			}
 		} 
 	}
-
 };
 
 class WhitePawn : public Pawn {
@@ -97,7 +97,7 @@ public:
 	}
 };
 
-class Rook : public Figure {
+class Rook : public virtual Figure {
 public:
 	Rook(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
@@ -108,94 +108,47 @@ public:
 
 	virtual void calcNewAllowedMoves() {
 		allowedMoves.clear();
-		if ( currntPos.number != MAX_INDEX) {
-			for ( auto vertical = currntPos.number + 1 ; vertical <= MAX_INDEX ; vertical++ ) {
-				ChessboardPos pos(currntPos.letter,vertical);
-				if ( (*board)[pos] == nullptr  ) 
-					allowedMoves.insert(pos); 
-				else {
-					if ( this->isEnemy(pos) )
-						allowedMoves.insert(pos); 
-					break;
-				}
-			}
-		}
-
-		if ( currntPos.number != 0) {
-			for ( auto vertical = currntPos.number - 1; vertical >= 0 ; vertical-- ) {
-				ChessboardPos pos(currntPos.letter,vertical);
-				if ( (*board)[pos] == nullptr  ) 
-					allowedMoves.insert(pos); 
-				else {
-					if ( this->isEnemy(pos) )
-						allowedMoves.insert(pos); 
-					break;
-				}
-			}
-		}
-
-		if ( currntPos.letter != MAX_INDEX) {
-			for ( int horizontal = currntPos.letter + 1; horizontal <= MAX_INDEX  ; horizontal++ ) {
-				ChessboardPos pos(horizontal,currntPos.number);
-				if ( (*board)[pos] == nullptr  ) 
-					allowedMoves.insert(pos); 
-				else {
-					if ( this->isEnemy(pos) )
-						allowedMoves.insert(pos); 
-					break;
-				}
-			}
-		}
-
-		if ( currntPos.letter != 0 ) {
-			for ( int horizontal = currntPos.letter - 1 ; horizontal >= 0 ; horizontal-- ) {
-				ChessboardPos pos(horizontal,currntPos.number);
-				if ( (*board)[pos] == nullptr  ) 
-					allowedMoves.insert(pos); 
-				else {
-					if ( this->isEnemy(pos) )
-						allowedMoves.insert(pos); 
-					break;
-				}
-			}
-		}
-
+		addVerticalHorizontal();
 	}
 
 	virtual short hashCode() {
 		return (short) ( ROOK_TYPE << 8) | clr;
 	}
-};
 
-class Queen : public Figure {
-public:
-	Queen(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
-
-	virtual string getStringSchematicRep() const {
-		return colorSchemeRep() + "_" + "Q";
+protected:
+	void addVerticalHorizontal() {
+		calcDirection(currntPos.number,+1,MAX_INDEX,false,true);
+		calcDirection(currntPos.number,-1,0,false,true);
+		calcDirection(currntPos.letter,+1,MAX_INDEX,true,false);
+		calcDirection(currntPos.letter,-1,0,true,false);
 	}
 
-
-	virtual void calcNewAllowedMoves() {
-		allowedMoves.clear();
-		int num = currntPos.number, letter = currntPos.letter;
-		//straight lines
-		for (int i = 0; i <= MAX_INDEX; i++){
-			addCell(letter, i);
-			addCell(i, num);
-			addCell(letter - i, num - i);
-			addCell(letter + i, num + i);
-			addCell(letter + i, num - i);
-			addCell(letter - i, num + i);
+private:
+	void calcDirection(int from,int direction,int to,bool isHorizontal,bool isVertical) {
+		int horizontalOffset = (isHorizontal) ? ( 1 ) : ( 0 );
+		int verticalOffset = (isVertical) ? ( 1 ) : ( 0 );
+		if ( from != to ) {
+			function<bool (int,int) > comparator; 
+			if ( to > from  ) 
+				comparator = [] (int i,int j)->bool { return i <= j; };
+			else 
+				comparator = [] (int i,int j)->bool { return i >= j; };
+			for ( int iter = direction; comparator(iter,to - from) ; iter += direction ) {
+				ChessboardPos pos( currntPos.letter + horizontalOffset*iter , currntPos.number + verticalOffset*iter );
+				if ( (*board)[pos] == nullptr  ) 
+					allowedMoves.insert(pos); 
+				else {
+					if ( this->isEnemy(pos) )
+						allowedMoves.insert(pos); 
+					break;
+				}
+			}
 		}
 	}
 
-	virtual short hashCode() {
-		return (short) ( QUEEN_TYPE << 8) | clr;
-	}
 };
 
-class Bishop : public Figure {
+class Bishop : public virtual Figure {
 public:
 	Bishop(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 
@@ -205,6 +158,14 @@ public:
 
 	virtual void calcNewAllowedMoves() {
 		allowedMoves.clear();
+		addDiagonals();
+	}
+
+	virtual short hashCode() {
+		return (short) ( BISHOP_TYPE << 8) | clr;
+	}
+protected:
+	void addDiagonals() {
 		int num = currntPos.number, letter = currntPos.letter;
 		//straight lines
 		for (int i = 0; i <= MAX_INDEX; i++){
@@ -215,13 +176,28 @@ public:
 		}
 	}
 
-	virtual short hashCode() {
-		return (short) ( BISHOP_TYPE << 8) | clr;
-	}
-
 };
 
-class Horse : public Figure{
+class Queen : public virtual Rook, public virtual Bishop {
+public:
+	Queen(Chessboard* b, ::Color c, ChessboardPos pos) : Rook(b, c, pos),Bishop(b, c, pos),Figure(b, c, pos) {}
+
+	virtual string getStringSchematicRep() const {
+		return colorSchemeRep() + "_" + "Q";
+	}
+	
+	virtual void calcNewAllowedMoves() {
+		allowedMoves.clear();
+		addVerticalHorizontal();
+		addDiagonals();
+	}
+
+	virtual short hashCode() {
+		return (short) ( QUEEN_TYPE << 8) | clr;
+	}
+};
+
+class Horse : public Figure {
 public:
 	Horse(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos) {}
 

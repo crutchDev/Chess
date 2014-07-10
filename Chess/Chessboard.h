@@ -15,7 +15,8 @@ struct ChessboardPos {
 	ChessboardPos(const ChessboardPos& cp) : letter(cp.letter),number(cp.number) { } 
 
 	ChessboardPos& operator=(const ChessboardPos& cp);
-	
+
+
 	bool operator==(const ChessboardPos& pos) const;
 	bool operator<(const ChessboardPos& pos) const;
 	bool operator>(const ChessboardPos& pos) const ;
