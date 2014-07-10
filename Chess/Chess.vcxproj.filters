@@ -13,12 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы исходного кода\Figures implementation">
+      <UniqueIdentifier>{42d36fbe-dd47-425a-9500-4e607989c9bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Figures declaration">
+      <UniqueIdentifier>{5e13c0c7-635c-4790-9be6-621f609c8af1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chessboard.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
-    <ClCompile Include="Figure.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
@@ -36,6 +39,27 @@
     <ClCompile Include="GuiInterface.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Figures\Bishop.cpp">
+      <Filter>Файлы исходного кода\Figures implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Pawn.cpp">
+      <Filter>Файлы исходного кода\Figures implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Rook.cpp">
+      <Filter>Файлы исходного кода\Figures implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Horse.cpp">
+      <Filter>Файлы исходного кода\Figures implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\King.cpp">
+      <Filter>Файлы исходного кода\Figures implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Queen.cpp">
+      <Filter>Файлы исходного кода\Figures implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figure.cpp">
+      <Filter>Файлы исходного кода\Figures implementation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chessboard.h">
@@ -45,9 +69,6 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Figures.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
-    <ClInclude Include="Figure.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
@@ -61,6 +82,27 @@
     </ClInclude>
     <ClInclude Include="GuiInterface.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Bishop.hpp">
+      <Filter>Заголовочные файлы\Figures declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Pawn.hpp">
+      <Filter>Заголовочные файлы\Figures declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Horse.hpp">
+      <Filter>Заголовочные файлы\Figures declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Queen.hpp">
+      <Filter>Заголовочные файлы\Figures declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\King.hpp">
+      <Filter>Заголовочные файлы\Figures declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Rook.hpp">
+      <Filter>Заголовочные файлы\Figures declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figure.h">
+      <Filter>Заголовочные файлы\Figures declaration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

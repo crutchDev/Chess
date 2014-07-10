@@ -34,7 +34,7 @@ std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 	sf::Text text(welcomeMessage, font, CHAR_SIZ);
 	text.setColor(sf::Color::Red);
 
-	sf::RenderWindow reqestWindow(sf::VideoMode(text.getLocalBounds().width + 7 * CHAR_SIZ, CHAR_SIZ + 20), 
+	sf::RenderWindow reqestWindow(sf::VideoMode((unsigned int) text.getLocalBounds().width + 7 * CHAR_SIZ, CHAR_SIZ + 20), 
 		"Enter name:");
 	
 	string playerName = "";
@@ -116,7 +116,7 @@ void GuiInterface::introducePlayerStep(Player* plr) {
 	sf::Text text(plr->getName() + message, font, CHAR_SIZ);
 	text.setFont(font);
 	text.setColor(sf::Color::Red);
-	sf::RenderWindow reqestWindow(sf::VideoMode(text.getLocalBounds().width, CHAR_SIZ + 20), "New turn");
+	sf::RenderWindow reqestWindow(sf::VideoMode( (unsigned int ) text.getLocalBounds().width, CHAR_SIZ + 20), "New turn");
 
 	sf::Clock c;
 	while (reqestWindow.isOpen() && (c.getElapsedTime().asSeconds() < 2)){
@@ -153,7 +153,7 @@ void GuiInterface::showBoard(Chessboard* board) {
 	for (auto iter = board->getIterator() ; iter.hasMoreFigures() ; iter++ ) 
 		if ( (*iter) != nullptr ) {
 			Sprite spr(textures->at( (*iter)->hashCode() ));
-			spr.setPosition(CELL_SIDE_SIZE*iter.getPos()->letter,yWindiwSize - (iter.getPos()->number + 1)*CELL_SIDE_SIZE);
+			spr.setPosition((float) CELL_SIDE_SIZE*iter.getPos()->letter,(float) yWindiwSize - (iter.getPos()->number + 1)*CELL_SIDE_SIZE);
 			playWindow->draw(spr);
 		}
 

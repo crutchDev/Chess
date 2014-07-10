@@ -13,6 +13,12 @@
   <ItemGroup>
     <ClCompile Include="Chessboard.cpp" />
     <ClCompile Include="Figure.cpp" />
+    <ClCompile Include="Figures\Bishop.cpp" />
+    <ClCompile Include="Figures\Horse.cpp" />
+    <ClCompile Include="Figures\King.cpp" />
+    <ClCompile Include="Figures\Pawn.cpp" />
+    <ClCompile Include="Figures\Queen.cpp" />
+    <ClCompile Include="Figures\Rook.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GuiInterface.cpp" />
     <ClCompile Include="MainActivity.cpp" />
@@ -24,6 +30,12 @@
     <ClInclude Include="chessInclude.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="Figures.h" />
+    <ClInclude Include="Figures\Bishop.hpp" />
+    <ClInclude Include="Figures\Horse.hpp" />
+    <ClInclude Include="Figures\King.hpp" />
+    <ClInclude Include="Figures\Pawn.hpp" />
+    <ClInclude Include="Figures\Queen.hpp" />
+    <ClInclude Include="Figures\Rook.hpp" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GuiInterface.h" />
     <ClInclude Include="MoveInfo.h" />
