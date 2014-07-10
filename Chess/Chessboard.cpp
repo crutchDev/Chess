@@ -55,6 +55,18 @@ void Chessboard::outBoard(ostream& out) {
 	out << endl;
 }
 
+bool Chessboard::isFreePos(ChessboardPos pos) const {
+	return board[pos.letter][pos.number] == nullptr;
+}
+
+Chessboard::Iterator Chessboard::getIterator() {
+	return Iterator(this);
+}
+
+Chessboard::Iterator Chessboard::getReverseIterator() {
+	return Iterator(this,true);
+}
+
 // ChessboardPos
 
 ChessboardPos::ChessboardPos(int letterNumb, int numb) {

@@ -3,10 +3,10 @@
 
 void Pawn::checkVertical(int doubleStepNumber,int verticalDirecion) {
 	ChessboardPos pos;
-	if ( !isAlly(pos = ChessboardPos(currntPos.letter,currntPos.number + verticalDirecion))) {
+	if ( board->isFreePos(pos = ChessboardPos(currntPos.letter,currntPos.number + verticalDirecion))) {
 		allowedMoves.insert(pos);			
 		if ( currntPos.number == doubleStepNumber 
-			&& !isAlly(pos = ChessboardPos(currntPos.letter,currntPos.number + 2*verticalDirecion))) 
+			&& board->isFreePos(pos = ChessboardPos(currntPos.letter,currntPos.number + 2*verticalDirecion))) 
 		{
 			allowedMoves.insert(pos);
 		}

@@ -89,15 +89,13 @@ public:
 
 	Figure*& Chessboard::operator[](ChessboardPos pos);
 	void putFigureToPos(Figure* figr);
+	bool isFreePos(ChessboardPos pos) const;
+
 	void foreach(function<void (Figure*)> func);
 	void foreach(function<void(Figure*)> func, ::Color c); 
 
-	Iterator getIterator() {
-		return Iterator(this);
-	}
-	Iterator getReverseIterator() {
-		return Iterator(this,true);
-	}
+	Iterator getIterator();
+	Iterator getReverseIterator();
 
 
 	// for test only 
