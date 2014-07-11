@@ -2,9 +2,6 @@
 
 #include "chessInclude.h"
 #include <iostream>
-#include <SFML/Graphics.hpp>
-
-
 
 GameManager::GameManager(GameInterface* comm) : communicator(comm) {
 	board = new Chessboard();
@@ -22,16 +19,16 @@ void GameManager::gameActivity() {
 	communicator->start();
 	while ( communicator->isExist() ) {
 
-		communicator->showBoard(board);		
+		communicator->showBoard(board);
 		white->step(communicator);
-		if ( black->gameOver() ) {
-			achivement(white);
+		if ( white->gameOver() ) {
+			achivement(black);
 			break;
 		}
 		communicator->showBoard(board);
 		black->step(communicator);
-		if ( white->gameOver() ) {
-			achivement(black);
+		if ( black->gameOver() ) {
+			achivement(white);
 			break;
 		}
 	}

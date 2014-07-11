@@ -17,8 +17,17 @@ void Figure::move(ChessboardPos& pos) {
 	(*board)[pos] = this; 
 	(*board)[currntPos] = nullptr; 
 	currntPos = pos;
+	calcNewAllowedMoves();
 }
 
 bool Figure::canMove(ChessboardPos& pos) const {
 	return binary_search(allowedMoves.begin(),allowedMoves.end(),pos);
+}
+
+bool Figure::isAlly(ChessboardPos& pos) {
+	return (*board)[pos] != nullptr && (*board)[pos]->clr == this->clr;
+}
+
+bool Figure::isEnemy(ChessboardPos& pos) {
+	return (*board)[pos] != nullptr && (*board)[pos]->clr != this->clr;
 }

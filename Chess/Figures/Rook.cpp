@@ -13,11 +13,13 @@ void Rook::calcDirection(int from,int direction,int to,bool isHorizontal,bool is
 			comparator = [] (int i,int j)->bool { return i >= j; };
 		for ( int iter = direction; comparator(iter,to - from) ; iter += direction ) {
 			ChessboardPos pos( currntPos.letter + horizontalOffset*iter , currntPos.number + verticalOffset*iter );
-			if ( (*board)[pos] == nullptr  ) 
+			if ( board->isFreePos(pos)  ) 
 				allowedMoves.insert(pos); 
 			else {
 				if ( this->isEnemy(pos) )
-					allowedMoves.insert(pos); 
+					allowedMoves.insert(pos);
+				else 
+					(*board)[pos]->support = true;
 				break;
 			}
 		}

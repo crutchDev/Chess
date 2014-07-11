@@ -9,11 +9,15 @@
 
 #include "chessInclude.h"
 
+#include <SFML/Graphics.hpp>
+using namespace sf;
+
+
 int main ()  {
 	
 	GuiInterface gIface;
 	GameManager manager(&gIface);
 	manager.gameActivity();
-		
+
 	return 0;
 }

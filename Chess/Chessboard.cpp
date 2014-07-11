@@ -8,9 +8,9 @@ Chessboard::Chessboard(void)
 
 
 Chessboard::~Chessboard(void) {
-	for ( auto i = 0 ; i <= MAX_INDEX  ; i++ ) 
-		for ( auto j = 0 ; j <= MAX_INDEX ; j++ )
-			delete board[i][j];
+	//for ( auto i = 0 ; i <= MAX_INDEX  ; i++ ) 
+	//	for ( auto j = 0 ; j <= MAX_INDEX ; j++ )
+	//		delete board[i][j];
 }
 
 void Chessboard::putFigureToPos(Figure* figr) {
@@ -105,7 +105,7 @@ bool ChessboardPos::operator>(const ChessboardPos& pos) const {
 		   ( pos.number * (MAX_INDEX + 1) + (pos.letter + 1));
 }
 
-ostream& operator<<(ostream& out,ChessboardPos& pos) {
+ostream& operator<<(ostream& out,const ChessboardPos& pos) {
 	out << "[" << (char) (pos.letter + 65) << "," << pos.number + 1 << "]";
 	return out;
 }

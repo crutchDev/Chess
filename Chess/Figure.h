@@ -10,6 +10,12 @@
 
 
 class Figure {
+friend class Bishop;
+friend class Pawn;
+friend class Rook;
+friend class Horse;
+friend class Queen;
+friend class King;
 public:
 
 	Figure(Chessboard* b, ::Color c, ChessboardPos pos) : board(b), clr(c),currntPos(pos),dead(false) { };
@@ -17,20 +23,17 @@ public:
 
 	bool canMove(ChessboardPos& pos) const ;
 	bool canMove() const { return allowedMoves.size() != 0; }
-	set< ChessboardPos > getAllowedMove() { return allowedMoves; }
+	set< ChessboardPos >& getAllowedMove() { return allowedMoves; }
 	::Color getColor() { return clr; }
 	Chessboard* boardWhereLocated() const { return board; }
 	ChessboardPos posWhereLocated() const { return currntPos; }
 	void setLocation(ChessboardPos& newPos) { currntPos = newPos; } 
 	void move(ChessboardPos& pos);
 	bool isDead() { return dead; }
-	bool isEnemy(ChessboardPos& pos) { 
-		return (*board)[pos] != nullptr && (*board)[pos]->clr != this->clr;
-	}
-	bool isAlly(ChessboardPos& pos) {
-		return (*board)[pos] != nullptr && (*board)[pos]->clr == this->clr;
-	}
-
+	bool isEnemy(ChessboardPos& pos);
+	bool isAlly(ChessboardPos& pos);
+	bool isSupported() { return support; }
+	void clearSupport() { support = false; }
 
 	// test only 
 	// first letter it is color symbol W - white , B - black 
@@ -39,6 +42,7 @@ public:
 	// Q - queen ; B - bishop ; H - horse 
 	virtual string getStringSchematicRep() const = 0;
 	virtual void calcNewAllowedMoves() = 0;
+	virtual set< ChessboardPos >& getCoveragedPos() { return allowedMoves; }
 
 	// hash code is two bytes 
 	// first is color 00001111 - white 11110000 - black
@@ -58,7 +62,7 @@ public:
 protected:
 	string colorSchemeRep() const ;
 
-	
+	bool support;
 	::Color clr;
 	Chessboard* board;
 	ChessboardPos currntPos;

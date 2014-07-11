@@ -14,8 +14,11 @@ void Horse::calcNewAllowedMoves() {
 			if (j == 0) continue;
 			if (abs(i) == abs(j)) continue;
 			ChessboardPos pos(letter + i, num + j);
-			if ( !(pos.isImagine() || isAlly(pos)) )
-				allowedMoves.insert(pos);
+			if ( !pos.isImagine() )
+				if ( isAlly(pos) )
+					(*board)[pos]->support = true;
+				else
+					allowedMoves.insert(pos);
 		}
 	}
 }

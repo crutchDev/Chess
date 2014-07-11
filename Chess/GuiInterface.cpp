@@ -19,7 +19,8 @@ GuiInterface::GuiInterface(const VideoMode& vm ) : playWindow(nullptr) {
 
 GuiInterface::~GuiInterface() {
 	delete playWindow;
-	delete textures;
+// TODO strange exception here
+	// delete textures;
 }
 
 std::string GuiInterface::requestPlayerNameForColor(::Color clr) {

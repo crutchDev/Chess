@@ -28,9 +28,10 @@ void Bishop::calcDiagonal(int horizontalDirection,int verticalDirection) {
 	while ( verticalIter <= MAX_INDEX && verticalIter >= 0 && 
 		horizontaIter <= MAX_INDEX && horizontaIter >= 0 ) {
 			ChessboardPos pos(horizontaIter,verticalIter);
-			if ( isAlly(pos)  ) 
+			if ( isAlly(pos)  ) {
+				(*board)[pos]->support = true;
 				break;
-			else {
+			} else {
 				allowedMoves.insert(pos);
 				if ( isEnemy(pos) )
 					break;

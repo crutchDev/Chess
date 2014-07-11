@@ -15,8 +15,15 @@ void Pawn::checkVertical(int doubleStepNumber,int verticalDirecion) {
 
 void Pawn::checkDiagonal(int verticalDirection,int horizontalDirection) {
 	ChessboardPos pos(currntPos.letter + horizontalDirection, currntPos.number + verticalDirection);
-	if ( !pos.isImagine() && this->isEnemy(pos) ) {
-		allowedMoves.insert(pos);
+	if ( !(pos.isImagine() ) ) {
+		if ( board->isFreePos(pos) )
+			coveragedPos.insert(pos);
+		else
+			if ( isEnemy(pos) ) {
+				coveragedPos.insert(pos);
+				allowedMoves.insert(pos);
+			} else 
+				(*board)[pos]->support = true;
 	}
 }
 
@@ -26,19 +33,4 @@ short Pawn::hashCode() {
 
 std::string Pawn::getStringSchematicRep() const {
 	return colorSchemeRep() + "_" + "P";
-}
-
-
-void WhitePawn::calcNewAllowedMoves() {
-	allowedMoves.clear();
-	checkVertical(DOUBLE_STEP_WHITE_POS,1);
-	checkDiagonal(1 ,-1);
-	checkDiagonal(1 , 1);
-}
-
-void BlackPawn::calcNewAllowedMoves() {
-	allowedMoves.clear();
-	checkVertical(DOUBLE_STEP_BLACK_POS,-1);
-	checkDiagonal(-1 ,-1);
-	checkDiagonal(-1 , 1);
 }

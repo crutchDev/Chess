@@ -23,7 +23,7 @@ struct ChessboardPos {
 	bool isImagine() const { return number == -1; };
 	void makeImagine() { number = -1; }
 
-	friend ostream& operator<<(ostream&,ChessboardPos&);	
+	friend ostream& operator<<(ostream&,const ChessboardPos&);	
 	friend istream& operator>>(istream&,ChessboardPos&);
 
 

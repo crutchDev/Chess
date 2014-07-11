@@ -50,7 +50,8 @@ void Player::initFigures(ChessboardPos corner,bool direction) {
 	board->putFigureToPos(storeFigure(new Bishop(board, team, ChessboardPos(corner.letter + MAX_INDEX - BISHOP_SYMMETRIC_SHIFT, corner.number))));
 
 	board->putFigureToPos(storeFigure(new Queen(board, team, ChessboardPos(corner.letter + QUEEN_RELATIVE_LEFT_CORNER_SHIFT, corner.number))));
-	board->putFigureToPos(storeFigure(new King(board, team, ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT, corner.number))));
+	king = new King(board, team, ChessboardPos(corner.letter + KING_RELATIVE_LEFT_CORNER_SHIFT, corner.number));
+	board->putFigureToPos(storeFigure(king));
 
 	for ( int i = 0 ; i <= MAX_INDEX ; i++) {
 		Figure* fig = nullptr;
@@ -68,7 +69,7 @@ Figure* Player::storeFigure(Figure* f) {
 }
 
 bool Player::gameOver() {
-	return king->isAttacked() && king->getAllowedMove().size() == 0;
+	return king->isAttacked();
 }
 
 void Player::step(GameInterface* communicator) {
@@ -91,13 +92,22 @@ void Player::step(GameInterface* communicator) {
 	communicator->introducePlayerStep(this);
 	movFigure = communicator->selectFigure(figures);	
 
-	cout << movFigure->getStringSchematicRep();
-	set < ChessboardPos > allowedM = movFigure->getAllowedMove();
-	cout << "allowed moves" << endl;
-	for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
+	//cout << movFigure->getStringSchematicRep();
+	//set < ChessboardPos > allowedM = movFigure->getAllowedMove();
+	//cout << "allowed moves" << endl;
+	//for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
 
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
 	movFigure->move(newPos);
+
+	for_each(figures.begin(),figures.end(), [] (Figure* fig)->void {
+		fig->clearSupport();
+	});
+
+	for_each(figures.begin(),figures.end(), [] (Figure* fig)-> void {
+		fig->calcNewAllowedMoves();
+	});
+	king->checkDangerous();
 	//cout << "moved\n";
 	//board->outBoard(cout);
 

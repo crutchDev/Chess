@@ -6,12 +6,14 @@
 
 #include "chessInclude.h"
 
+#include <iostream>
+
 class GameInterface {
 public:
 	virtual string requestPlayerNameForColor(::Color clr) = 0;
 	virtual Figure* selectFigure(vector <Figure*> from) = 0;
 	ChessboardPos selectPosToMove(set < ChessboardPos >& allowedMoves ) { 
-		selectPosToMove(move(allowedMoves));
+		return selectPosToMove(move(allowedMoves));
 	}
 	virtual ChessboardPos selectPosToMove(set < ChessboardPos >&& allowedMoves ) = 0;
 	virtual void introducePlayerStep(Player* plr) = 0;
@@ -38,6 +40,9 @@ public:
 
 private : 
 	void achivement(Player* who) {
+
+		// temporary
+		cout << who->getName() + " is winner." << endl;
 
 	}
 
