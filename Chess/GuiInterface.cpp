@@ -80,6 +80,7 @@ std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 Figure* GuiInterface::selectFigure(vector<Figure*> from) {
 	while (true) {
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			clickSound.play();
 			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
 			ChessboardPos boardPos = getBoardPosFromMousePos(pos);
 			auto findRes = find_if(from.begin(), from.end(), [&](Figure* f) -> bool { return f->posWhereLocated() == boardPos; });
@@ -96,6 +97,7 @@ Figure* GuiInterface::selectFigure(vector<Figure*> from) {
 ChessboardPos GuiInterface::selectPosToMove(set< ChessboardPos >&& allowedMoves) {
 	while (true) 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			clickSound.play();
 			sf::Vector2i pos = sf::Mouse::getPosition(*playWindow);
 			ChessboardPos boardPos = getBoardPosFromMousePos(pos);
 			if ( binary_search(allowedMoves.begin(),allowedMoves.end(),boardPos)) {
@@ -144,6 +146,9 @@ void GuiInterface::start() {
 	icon.loadFromFile(WINDOW_ICON);
 	playWindow->setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
 	textures = fillTextures();
+
+	clickBuffer.loadFromFile("res/sounds/click.wav");
+	clickSound.setBuffer(clickBuffer);
 }
 
 void GuiInterface::showBoard(Chessboard* board) {

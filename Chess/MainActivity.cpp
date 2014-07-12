@@ -14,7 +14,7 @@ using namespace sf;
 
 
 int main ()  {
-	
+
 	GuiInterface gIface;
 	GameManager manager(&gIface);
 	manager.gameActivity();
