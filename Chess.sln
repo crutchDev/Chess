@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chess.Test", "Chess.Test\Ch
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChessStructure", "ChessStructure\ChessStructure.vcxproj", "{599565C5-B6D9-4231-BB4F-6FC90C4E0F1D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleMenu", "SimpleMenu\SimpleMenu.vcxproj", "{40164E48-92FF-4266-9F46-100BA49047CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{599565C5-B6D9-4231-BB4F-6FC90C4E0F1D}.Debug|Win32.Build.0 = Debug|Win32
 		{599565C5-B6D9-4231-BB4F-6FC90C4E0F1D}.Release|Win32.ActiveCfg = Release|Win32
 		{599565C5-B6D9-4231-BB4F-6FC90C4E0F1D}.Release|Win32.Build.0 = Release|Win32
+		{40164E48-92FF-4266-9F46-100BA49047CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{40164E48-92FF-4266-9F46-100BA49047CC}.Debug|Win32.Build.0 = Debug|Win32
+		{40164E48-92FF-4266-9F46-100BA49047CC}.Release|Win32.ActiveCfg = Release|Win32
+		{40164E48-92FF-4266-9F46-100BA49047CC}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
