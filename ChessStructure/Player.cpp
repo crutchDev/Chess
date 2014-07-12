@@ -100,12 +100,20 @@ void Player::step(GameInterface* communicator) {
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
 	movFigure->move(newPos);
 	//transformation
-	if (dynamic_cast<Pawn*>(movFigure) != nullptr
-		&& newPos.number == (team == ::Color::WHITE) ? MAX_INDEX : 0) {
-		board->putFigureToPos(storeFigure(new Queen(board, team, 
-					ChessboardPos(movFigure->posWhereLocated().letter, (team == ::Color::WHITE) ? MAX_INDEX : 0))));
-		remove(figures.begin(), figures.end(), movFigure);
-		delete movFigure;
+	if (dynamic_cast<Pawn*>(movFigure) != nullptr) {
+		auto movFigPos = movFigure->posWhereLocated();
+		if (team == ::Color::WHITE && movFigPos.number == MAX_INDEX) {
+			board->putFigureToPos(storeFigure(new Queen(board, team,
+				ChessboardPos(movFigPos.letter, MAX_INDEX))));
+			remove(figures.begin(), figures.end(), movFigure);
+			delete movFigure;
+		}
+		else if (team == ::Color::BLACK && movFigPos.number == 0) {
+			board->putFigureToPos(storeFigure(new Queen(board, team,
+				ChessboardPos(movFigPos.letter,  0))));
+			remove(figures.begin(), figures.end(), movFigure);
+			delete movFigure;
+		}
 	}
 
 	for_each(figures.begin(),figures.end(), [] (Figure* fig)->void {
