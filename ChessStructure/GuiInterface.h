@@ -4,7 +4,7 @@
 
 #include "chessInclude.h"
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+//#include <SFML/Audio.hpp>
 #include <thread>
 #include <map>
 
@@ -33,8 +33,8 @@ private:
 	ChessboardPos getBoardPosFromMousePos(sf::Vector2i pos);
 
 	sf::RenderWindow* playWindow;	
-	sf::Sound clickSound;
-	sf::SoundBuffer clickBuffer;
+	//sf::Sound clickSound;
+	//sf::SoundBuffer clickBuffer;
 	int xWindowSize;
 	int yWindiwSize;
 

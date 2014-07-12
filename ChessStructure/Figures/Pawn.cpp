@@ -3,6 +3,7 @@
 
 void Pawn::checkVertical(int doubleStepNumber,int verticalDirecion) {
 	ChessboardPos pos;
+	if ( currntPos.number == MAX_INDEX - doubleStepNumber + verticalDirecion ) return;
 	if ( board->isFreePos(pos = ChessboardPos(currntPos.letter,currntPos.number + verticalDirecion))) {
 		allowedMoves.insert(pos);			
 		if ( currntPos.number == doubleStepNumber 
