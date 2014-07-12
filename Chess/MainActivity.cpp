@@ -7,7 +7,7 @@
 *************************************************************************/
 
 
-#include "chessInclude.h"
+#include <chessInclude.h>
 
 #include <SFML/Graphics.hpp>
 using namespace sf;

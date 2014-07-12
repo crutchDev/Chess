@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../Chess/chessInclude.h"
+#include "../ChessStructure/chessInclude.h"
 
 TEST(testOne, ChessTest) {
 	ChessboardPos a;
@@ -17,13 +17,13 @@ TEST(testOne, ChessTest) {
 //
 //}
 //
-//TEST(rookTest2,ChessTest) {
-//	Chessboard board;
-//	Rook* rookFig = new Rook(&board,WHITE,ChessboardPos(A,0) );
-//	board.putFigureToPos(rookFig);
-//	rookFig->calcNewAllowedMoves();
-//	EXPECT_TRUE( rookFig->getAllowedMove().size() == 14 );
-//}
+TEST(rookTest2,ChessTest) {
+	Chessboard board;
+	Rook* rookFig = new Rook(&board,WHITE,ChessboardPos(A,0) );
+	board.putFigureToPos(rookFig);
+	rookFig->calcNewAllowedMoves();
+	EXPECT_TRUE( rookFig->getAllowedMove().size() == 14 );
+}
 //
 
 // PAWN 

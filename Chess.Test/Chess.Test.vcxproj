@@ -81,8 +81,8 @@
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chess\Chess.vcxproj">
-      <Project>{2805b8c4-fcad-4aa8-8418-8c3c46c1f310}</Project>
+    <ProjectReference Include="..\ChessStructure\ChessStructure.vcxproj">
+      <Project>{599565c5-b6d9-4231-bb4f-6fc90c4e0f1d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\GoogleTest\GoogleTest.vcxproj">
       <Project>{2af16639-843d-4ba2-8077-4e605e2a35f0}</Project>

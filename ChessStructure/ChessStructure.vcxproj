@@ -11,27 +11,49 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MainActivity.cpp" />
+    <ClCompile Include="Chessboard.cpp" />
+    <ClCompile Include="Figure.cpp" />
+    <ClCompile Include="Figures\Bishop.cpp" />
+    <ClCompile Include="Figures\Horse.cpp" />
+    <ClCompile Include="Figures\King.cpp" />
+    <ClCompile Include="Figures\Pawn.cpp" />
+    <ClCompile Include="Figures\Queen.cpp" />
+    <ClCompile Include="Figures\Rook.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GuiInterface.cpp" />
+    <ClCompile Include="MoveInfo.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChessStructure\ChessStructure.vcxproj">
-      <Project>{599565c5-b6d9-4231-bb4f-6fc90c4e0f1d}</Project>
-    </ProjectReference>
+    <ClInclude Include="Chessboard.h" />
+    <ClInclude Include="chessInclude.h" />
+    <ClInclude Include="Figure.h" />
+    <ClInclude Include="Figures.h" />
+    <ClInclude Include="Figures\Bishop.hpp" />
+    <ClInclude Include="Figures\Horse.hpp" />
+    <ClInclude Include="Figures\King.hpp" />
+    <ClInclude Include="Figures\Pawn.hpp" />
+    <ClInclude Include="Figures\Queen.hpp" />
+    <ClInclude Include="Figures\Rook.hpp" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GuiInterface.h" />
+    <ClInclude Include="MoveInfo.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2805B8C4-FCAD-4AA8-8418-8C3C46C1F310}</ProjectGuid>
+    <ProjectGuid>{599565C5-B6D9-4231-BB4F-6FC90C4E0F1D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Chess</RootNamespace>
+    <RootNamespace>ChessStructure</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -47,27 +69,23 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\software\SFML\include;$(SolutionDir)\ChessStructure\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Software\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\software\SFML\lib;$(SolutionDir)\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"sfml-graphics-s-d.lib";"sfml-window-s-d.lib";"sfml-network-s-d.lib";"sfml-audio-s-d.lib";"sfml-system-s-d.lib";"ChessStructure.lib";%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>c:\Software\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -77,16 +95,13 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\software\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\software\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>"sfml-graphics-s.lib";"sfml-window-s.lib";"sfml-network-s.lib";"sfml-audio-s.lib";"sfml-system-s.lib";%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
