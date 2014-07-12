@@ -28,7 +28,6 @@ public:
 	Chessboard* boardWhereLocated() const { return board; }
 	ChessboardPos posWhereLocated() const { return currntPos; }
 	void setLocation(ChessboardPos& newPos) { currntPos = newPos; } 
-	void move(ChessboardPos& pos);
 	bool isDead() { return dead; }
 	bool isEnemy(ChessboardPos& pos);
 	bool isAlly(ChessboardPos& pos);
@@ -42,6 +41,7 @@ public:
 	// Q - queen ; B - bishop ; H - horse 
 	virtual string getStringSchematicRep() const = 0;
 	virtual void calcNewAllowedMoves() = 0;
+	virtual void move(ChessboardPos& pos);
 	virtual set< ChessboardPos >& getCoveragedPos() { return allowedMoves; }
 
 	// hash code is two bytes 

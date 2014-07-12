@@ -54,7 +54,7 @@ std::string GuiInterface::requestPlayerNameForColor(::Color clr) {
 				}
 			}
 			if (event.type == sf::Event::KeyPressed && event.key.code == Keyboard::BackSpace) {
-				if (playerName.length() > 0){
+				if (playerName.length() > 0) {
 					playerName = playerName.substr(0, playerName.length() - 1);
 					text.setString(welcomeMessage + playerName);
 				}

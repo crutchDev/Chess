@@ -92,13 +92,21 @@ void Player::step(GameInterface* communicator) {
 	communicator->introducePlayerStep(this);
 	movFigure = communicator->selectFigure(figures);	
 
-	//cout << movFigure->getStringSchematicRep();
-	//set < ChessboardPos > allowedM = movFigure->getAllowedMove();
-	//cout << "allowed moves" << endl;
-	//for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
+	cout << movFigure->getStringSchematicRep();
+	set < ChessboardPos > allowedM = movFigure->getAllowedMove();
+	cout << "allowed moves" << endl;
+	for_each(allowedM.begin(),allowedM.end(),[] (ChessboardPos pos) { cout << pos << endl; });
 
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
 	movFigure->move(newPos);
+	//transformation
+	if (dynamic_cast<Pawn*>(movFigure) != nullptr
+		&& newPos.number == (team == ::Color::WHITE) ? MAX_INDEX : 0) {
+		board->putFigureToPos(storeFigure(new Queen(board, team, 
+					ChessboardPos(movFigure->posWhereLocated().letter, (team == ::Color::WHITE) ? MAX_INDEX : 0))));
+		remove(figures.begin(), figures.end(), movFigure);
+		delete movFigure;
+	}
 
 	for_each(figures.begin(),figures.end(), [] (Figure* fig)->void {
 		fig->clearSupport();

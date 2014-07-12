@@ -14,4 +14,3 @@ short Queen::hashCode() {
 std::string Queen::getStringSchematicRep() const {
 	return colorSchemeRep() + "_" + "Q";
 }
-
