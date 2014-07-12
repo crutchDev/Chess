@@ -149,8 +149,6 @@ void GuiInterface::start() {
 	playWindow->setIcon(icon.getSize().x,icon.getSize().y,icon.getPixelsPtr());
 	textures = fillTextures();
 
-	menuOpion = menu.showMenu();
-	handleMenuOption();
 	//clickBuffer.loadFromFile("res/sounds/click.wav");
 	//clickSound.setBuffer(clickBuffer);
 }
