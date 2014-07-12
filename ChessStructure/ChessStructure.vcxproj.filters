@@ -13,30 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Figures Declaration">
+      <UniqueIdentifier>{0485459a-3c36-46b4-a701-f5d3c8691921}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Figures Implementation">
+      <UniqueIdentifier>{ed69679d-ee51-42a6-b698-476444793679}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Figures\Bishop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Figures\Horse.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Figures\King.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Figures\Pawn.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Figures\Queen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Figures\Rook.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Chessboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Figure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
@@ -51,33 +36,33 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Figures\Bishop.cpp">
+      <Filter>Source Files\Figures Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figure.cpp">
+      <Filter>Source Files\Figures Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Horse.cpp">
+      <Filter>Source Files\Figures Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\King.cpp">
+      <Filter>Source Files\Figures Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Pawn.cpp">
+      <Filter>Source Files\Figures Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Queen.cpp">
+      <Filter>Source Files\Figures Implementation</Filter>
+    </ClCompile>
+    <ClCompile Include="Figures\Rook.cpp">
+      <Filter>Source Files\Figures Implementation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Figures\Bishop.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Figures\Horse.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Figures\King.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Figures\Pawn.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Figures\Queen.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Figures\Rook.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Chessboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="chessInclude.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Figure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Figures.h">
@@ -94,6 +79,27 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Bishop.hpp">
+      <Filter>Header Files\Figures Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Horse.hpp">
+      <Filter>Header Files\Figures Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\King.hpp">
+      <Filter>Header Files\Figures Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Pawn.hpp">
+      <Filter>Header Files\Figures Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Queen.hpp">
+      <Filter>Header Files\Figures Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figures\Rook.hpp">
+      <Filter>Header Files\Figures Declaration</Filter>
+    </ClInclude>
+    <ClInclude Include="Figure.h">
+      <Filter>Header Files\Figures Declaration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
