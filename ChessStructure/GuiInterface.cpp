@@ -208,7 +208,7 @@ map< short , Texture >* GuiInterface::fillTextures() {
 RenderWindow* GuiInterface::createWindowAndWindowHandlerThread() const {
 	RenderWindow* returnedWindow = nullptr;
 	thread windowEventsHandler([=,&returnedWindow] ()->void {
-		RenderWindow* createdWindow = new RenderWindow(VideoMode(xWindowSize,yWindiwSize),WINDOW_NAME);
+		RenderWindow* createdWindow = new RenderWindow(VideoMode(xWindowSize,yWindiwSize),WINDOW_NAME,sf::Style::Close + sf::Style::Titlebar);
 		createdWindow->setActive(false);
 		returnedWindow = createdWindow;
 		while (createdWindow->isOpen()) {
