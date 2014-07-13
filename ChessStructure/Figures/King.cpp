@@ -76,7 +76,8 @@ void King::tryCastling(ChessboardPos & pos, CharCoord rookPos)
 	int direction = (rookPos > currntPos.letter) ? +1 : -1;
 	if (pos.letter - currntPos.letter == 2 * direction) {
 		Rook* rook = dynamic_cast<Rook*>((*board)[ChessboardPos(rookPos, currntPos.number)]);
-		rook->move(ChessboardPos(currntPos.letter + direction, pos.number));
+		if (rook != nullptr && !rook->isMoved())
+			rook->move(ChessboardPos(currntPos.letter + direction, pos.number));
 	}
 }
 //checks if king can castle with rook at letter
