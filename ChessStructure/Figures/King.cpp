@@ -91,18 +91,14 @@ void King::checkCastlingWith(CharCoord ch) {
 		//if rook didn't move, and other positions are empty
 		
 		if (rook->isMoved()) return;
-		for (auto i = ChessboardPos(currntPos.letter + direction,currntPos.number); 
-			i.letter > 0 && i.letter < MAX_INDEX; 
+		for (auto i = ChessboardPos(currntPos.letter + direction,currntPos.number); i.letter > 0 && i.letter < MAX_INDEX; 
 			i.letter = CharCoord(i.letter + direction)) 
 		{
 			if (!board->isFreePos(i)) return;
+			if (binary_search(enemiesPosCoverage.begin(), enemiesPosCoverage.end(), i)) return;
 		}
 		//if position is not under attack
-		if (!binary_search(enemiesPosCoverage.begin(), enemiesPosCoverage.end(),
-			ChessboardPos(currntPos.letter + 2 * direction, currntPos.number))) {
-		
-			allowedMoves.insert(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number));
-		}
+		allowedMoves.insert(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number));
 	}
 	
 }

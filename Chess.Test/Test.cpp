@@ -2,6 +2,8 @@
 
 #include "../ChessStructure/chessInclude.h"
 
+void checkCastlingLeftAllowed(King* king);
+
 void testCastling(int dir);
 
 TEST(MovementTests, Rook_allowed_moves_count) {
@@ -54,9 +56,7 @@ TEST(MovementTests, Castling_left_should_fail) {
 	rook->move(ChessboardPos(A, 0));
 	king->calcNewAllowedMoves();
 
-	ChessboardPos castlingPos = ChessboardPos(C, 0);
-	auto moves = king->getAllowedMove();
-	EXPECT_EQ(find(moves.begin(), moves.end(), castlingPos), moves.end());
+	checkCastlingLeftAllowed(king);
 }
 
 TEST(MovementTests, Castling_to_attacked_pos) {
@@ -65,7 +65,7 @@ TEST(MovementTests, Castling_to_attacked_pos) {
 	King* king = new King(&board, WHITE, ChessboardPos(E, 0));
 
 	Queen* enemyQueen = new Queen(&board, BLACK, ChessboardPos(C, 4));
-
+	
 	board.putFigureToPos(rook);
 	board.putFigureToPos(king);
 	board.putFigureToPos(enemyQueen);
@@ -74,10 +74,7 @@ TEST(MovementTests, Castling_to_attacked_pos) {
 	rook->calcNewAllowedMoves();
 	king->calcNewAllowedMoves();
 
-	ChessboardPos castlingPos = ChessboardPos(C, 0);
-	auto moves = king->getAllowedMove();
-	EXPECT_EQ(find(moves.begin(), moves.end(), castlingPos), moves.end());
-
+	checkCastlingLeftAllowed(king);
 }
 
 TEST(MovementTests, Castling_while_attacked) {
@@ -96,11 +93,35 @@ TEST(MovementTests, Castling_while_attacked) {
 	king->checkDangerous();
 	king->calcNewAllowedMoves();
 
+	checkCastlingLeftAllowed(king);
+
+}
+
+TEST(MovementTests, Castling_through_attacked_pos) {
+	Chessboard board;
+	Rook* rook = new Rook(&board, WHITE, ChessboardPos(A, 0));
+	King* king = new King(&board, WHITE, ChessboardPos(E, 0));
+
+	Queen* enemyQueen = new Queen(&board, BLACK, ChessboardPos(D, 4));
+
+	board.putFigureToPos(rook);
+	board.putFigureToPos(king);
+	board.putFigureToPos(enemyQueen);
+
+	enemyQueen->calcNewAllowedMoves();
+	rook->calcNewAllowedMoves();
+	king->calcNewAllowedMoves();
+
+	checkCastlingLeftAllowed(king);
+}
+
+void checkCastlingLeftAllowed(King* king) {
 	ChessboardPos castlingPos = ChessboardPos(C, 0);
 	auto moves = king->getAllowedMove();
 	EXPECT_EQ(find(moves.begin(), moves.end(), castlingPos), moves.end());
-
 }
+
+
 
 //
 
