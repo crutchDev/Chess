@@ -2,6 +2,8 @@
 
 #include "../ChessStructure/chessInclude.h"
 
+void checkCastlingLeftAllowed(King* king);
+
 void testCastling(int dir);
 
 TEST(MovementTests, Rook_allowed_moves_count) {
@@ -31,8 +33,11 @@ void testCastling(int dir) {
 
 	king->calcNewAllowedMoves();
 	ChessboardPos castlingPos = ChessboardPos(E + dir * 2, 0);
-	king->move(castlingPos);
+	auto moves = king->getAllowedMove();
+	EXPECT_NE(find(moves.begin(), moves.end(), castlingPos), moves.end());
 
+
+	king->move(castlingPos);
 	EXPECT_EQ(board[ChessboardPos(A, 0)], nullptr);
 	EXPECT_EQ(board[ChessboardPos(E, 0)], nullptr);
 	EXPECT_EQ(board[ChessboardPos(E + 2*dir, 0)], (Figure*)king);
@@ -51,10 +56,72 @@ TEST(MovementTests, Castling_left_should_fail) {
 	rook->move(ChessboardPos(A, 0));
 	king->calcNewAllowedMoves();
 
+	checkCastlingLeftAllowed(king);
+}
+
+TEST(MovementTests, Castling_to_attacked_pos) {
+	Chessboard board;
+	Rook* rook = new Rook(&board, WHITE, ChessboardPos(A, 0));
+	King* king = new King(&board, WHITE, ChessboardPos(E, 0));
+
+	Queen* enemyQueen = new Queen(&board, BLACK, ChessboardPos(C, 4));
+	
+	board.putFigureToPos(rook);
+	board.putFigureToPos(king);
+	board.putFigureToPos(enemyQueen);
+
+	enemyQueen->calcNewAllowedMoves();
+	rook->calcNewAllowedMoves();
+	king->calcNewAllowedMoves();
+
+	checkCastlingLeftAllowed(king);
+}
+
+TEST(MovementTests, Castling_while_attacked) {
+	Chessboard board;
+	Rook* rook = new Rook(&board, WHITE, ChessboardPos(A, 0));
+	King* king = new King(&board, WHITE, ChessboardPos(E, 0));
+
+	Queen* enemyQueen = new Queen(&board, BLACK, ChessboardPos(E, 4));
+
+	board.putFigureToPos(rook);
+	board.putFigureToPos(king);
+	board.putFigureToPos(enemyQueen);
+
+	enemyQueen->calcNewAllowedMoves();
+	rook->calcNewAllowedMoves();
+	king->checkDangerous();
+	king->calcNewAllowedMoves();
+
+	checkCastlingLeftAllowed(king);
+
+}
+
+TEST(MovementTests, Castling_through_attacked_pos) {
+	Chessboard board;
+	Rook* rook = new Rook(&board, WHITE, ChessboardPos(A, 0));
+	King* king = new King(&board, WHITE, ChessboardPos(E, 0));
+
+	Queen* enemyQueen = new Queen(&board, BLACK, ChessboardPos(D, 4));
+
+	board.putFigureToPos(rook);
+	board.putFigureToPos(king);
+	board.putFigureToPos(enemyQueen);
+
+	enemyQueen->calcNewAllowedMoves();
+	rook->calcNewAllowedMoves();
+	king->calcNewAllowedMoves();
+
+	checkCastlingLeftAllowed(king);
+}
+
+void checkCastlingLeftAllowed(King* king) {
 	ChessboardPos castlingPos = ChessboardPos(C, 0);
 	auto moves = king->getAllowedMove();
-	EXPECT_TRUE(find(moves.begin(), moves.end(), castlingPos) == moves.end());
+	EXPECT_EQ(find(moves.begin(), moves.end(), castlingPos), moves.end());
 }
+
+
 
 //
 

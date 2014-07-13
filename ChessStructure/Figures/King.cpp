@@ -82,19 +82,23 @@ void King::tryCastling(ChessboardPos & pos, CharCoord rookPos)
 }
 //checks if king can castle with rook at letter
 void King::checkCastlingWith(CharCoord ch) {
-	if (ch != A && ch != H) return;
-
+	if (ch != A && ch != H || isAttacked()) return;
+	
 	Figure* fig = (*board)[ChessboardPos(ch, currntPos.number)];
 	Rook* rook = dynamic_cast<Rook*>(fig);
 	int direction = (currntPos.letter < ch) ? +1 : -1;
 	if (rook != nullptr) {
 		//if rook didn't move, and other positions are empty
-		if (!rook->isMoved()
-			&& board->isFreePos(ChessboardPos(currntPos.letter + 1 * direction, currntPos.number))
-			&& board->isFreePos(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number)))
+		
+		if (rook->isMoved()) return;
+		for (auto i = ChessboardPos(currntPos.letter + direction,currntPos.number); i.letter > 0 && i.letter < MAX_INDEX; 
+			i.letter = CharCoord(i.letter + direction)) 
 		{
-			allowedMoves.insert(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number));
+			if (!board->isFreePos(i)) return;
+			if (binary_search(enemiesPosCoverage.begin(), enemiesPosCoverage.end(), i)) return;
 		}
+		//if position is not under attack
+		allowedMoves.insert(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number));
 	}
 	
 }
