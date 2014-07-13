@@ -63,10 +63,8 @@ void King::move(ChessboardPos& pos) {
 //checks if king can castle in any direction
 void King::checkCastling() {
 	if (moved) return;
-	//castling with rook at A
 	checkCastlingWith(A);
 
-	//castling with rook at H
 	checkCastlingWith(H);
 	
 }
@@ -88,7 +86,7 @@ void King::checkCastlingWith(CharCoord ch) {
 	Figure* fig = (*board)[ChessboardPos(ch, currntPos.number)];
 	Rook* rook = dynamic_cast<Rook*>(fig);
 	int direction = (currntPos.letter < ch) ? +1 : -1;
-	if (rook) {
+	if (rook != nullptr) {
 		//if rook didn't move, and other positions are empty
 		if (!rook->isMoved()
 			&& board->isFreePos(ChessboardPos(currntPos.letter + 1 * direction, currntPos.number))
@@ -97,5 +95,6 @@ void King::checkCastlingWith(CharCoord ch) {
 			allowedMoves.insert(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number));
 		}
 	}
+	
 }
 
