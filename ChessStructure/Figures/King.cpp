@@ -51,41 +51,38 @@ void King::collectEnemiesPosCoverage(bool recalcEnemyMove ) {
 	} , ( clr == WHITE ) ? ( BLACK ) : ( WHITE ) );
 }
 
-void King::move(ChessboardPos& pos)
-{
-
-	if (moved) {
-		Figure::move(pos);
-	}
-	else {
-		if (pos.number == currntPos.number) {
-			if (pos.letter - currntPos.letter == 2) {
-				//castling with rook at H
-				Rook* ARook = dynamic_cast<Rook*>((*board)[ChessboardPos(H, currntPos.number)]);
-				ARook->move(ChessboardPos(F, pos.number));
-				Figure::move(pos);
-			}
-			else if (pos.letter - currntPos.letter == -2) {
+void King::move(ChessboardPos& pos) {
+	if ( moved == false 
+			&& pos.number == currntPos.number 
+			&& abs(pos.letter - currntPos.letter) == 2) {
+		if (pos.letter - currntPos.letter == 2) {
+			//castling with rook at H
+			Rook* ARook = dynamic_cast<Rook*>((*board)[ChessboardPos(H, currntPos.number)]);
+			ARook->move(ChessboardPos(F, pos.number));
+			Figure::move(pos);
+		} else { 
+			if (pos.letter - currntPos.letter == -2) {
 				//castling with rook at A
 				Rook* ARook = dynamic_cast<Rook*>((*board)[ChessboardPos(A, currntPos.number)]);
 				ARook->move(ChessboardPos(D, pos.number));
 				Figure::move(pos);
 			}
 		}
+		moved = true;
+	} else {
+			Figure::move(pos);
 	}
-	moved = true;
 }
 
-void King::checkCastling()
-{
+void King::checkCastling() {
 	if (moved) return;
 	//castling with rook at A
 	Figure* fig = (*board)[ChessboardPos(A, currntPos.number)];
 	Rook* rook = dynamic_cast<Rook*>(fig);
-	if (rook) {
+	if ( rook != nullptr ) {
 		//if rook didn't move, and other positions are empty
 		if (!rook->isMoved() 
-			//&& board->isFreePos(ChessboardPos(B, currntPos.number))
+			&& board->isFreePos(ChessboardPos(B, currntPos.number))
 			&& board->isFreePos(ChessboardPos(C, currntPos.number))
 			&& board->isFreePos(ChessboardPos(D, currntPos.number)))
 		{
@@ -95,7 +92,7 @@ void King::checkCastling()
 
 	//castling with rook at H
 	rook = dynamic_cast<Rook*>((*board)[ChessboardPos(H, currntPos.number)]);
-	if (rook) {
+	if ( rook != nullptr ) {
 		//if rook didn't move, and other positions are empty
 		if (!rook->isMoved()
 			&& board->isFreePos(ChessboardPos(F, currntPos.number))

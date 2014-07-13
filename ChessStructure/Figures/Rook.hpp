@@ -14,11 +14,11 @@ public:
 	virtual short hashCode();
 	virtual void move(ChessboardPos& pos);
 protected:
-
+	bool moved;
 	void addVerticalHorizontal();
 
 private:
-	bool moved;
+
 	void calcDirection(int from,int direction,int to,bool isHorizontal,bool isVertical);
 };
 

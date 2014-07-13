@@ -46,8 +46,7 @@ std::string Rook::getStringSchematicRep() const {
 	return colorSchemeRep() + "_" + "R";
 }
 
-void Rook::move(ChessboardPos& pos)
-{
+void Rook::move(ChessboardPos& pos) {
 	moved = true;
 	Figure::move(pos);
 }

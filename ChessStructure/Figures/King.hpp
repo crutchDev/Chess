@@ -6,7 +6,7 @@
 
 class King : public Figure {
 public :
-	King(Chessboard* b, ::Color c, ChessboardPos pos, bool _moved = false) : Figure(b, c, pos), attacked(false), moved(_moved) { }
+	King(Chessboard* b, ::Color c, ChessboardPos pos) : Figure(b, c, pos), attacked(false), moved(false) { }
 
 	bool isAttacked();
 	virtual string getStringSchematicRep() const;
