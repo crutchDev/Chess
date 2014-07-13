@@ -99,22 +99,8 @@ void Player::step(GameInterface* communicator) {
 
 	newPos = communicator->selectPosToMove(movFigure->getAllowedMove());
 	movFigure->move(newPos);
-	//transformation
-	if (dynamic_cast<Pawn*>(movFigure) != nullptr) {
-		auto movFigPos = movFigure->posWhereLocated();
-		if (team == ::Color::WHITE && movFigPos.number == MAX_INDEX) {
-			board->putFigureToPos(storeFigure(new Queen(board, team,
-				ChessboardPos(movFigPos.letter, MAX_INDEX))));
-			remove(figures.begin(), figures.end(), movFigure);
-			delete movFigure;
-		}
-		else if (team == ::Color::BLACK && movFigPos.number == 0) {
-			board->putFigureToPos(storeFigure(new Queen(board, team,
-				ChessboardPos(movFigPos.letter,  0))));
-			remove(figures.begin(), figures.end(), movFigure);
-			delete movFigure;
-		}
-	}
+	
+	tryTransform(movFigure);
 
 	for_each(figures.begin(),figures.end(), [] (Figure* fig)->void {
 		fig->clearSupport();
@@ -133,6 +119,26 @@ Player::~Player() {
 	for_each(figures.begin(),figures.end(),[] (Figure* fig)->void {
 		delete fig;
 	});
+}
+
+void Player::tryTransform(Figure* movFigure)
+{
+	if (dynamic_cast<Pawn*>(movFigure) != nullptr) {
+		auto movFigPos = movFigure->posWhereLocated();
+		if (team == ::Color::WHITE && movFigPos.number == MAX_INDEX) {
+			changeFigure(movFigPos, movFigure);
+		}
+		else if (team == ::Color::BLACK && movFigPos.number == 0) {
+			changeFigure(movFigPos, movFigure);
+		}
+	}
+}
+
+void Player::changeFigure(ChessboardPos &pos, Figure* movFigure)
+{
+	board->putFigureToPos(storeFigure(new Queen(board, team, pos)));
+	remove(figures.begin(), figures.end(), movFigure);
+	delete movFigure;
 }
 
 

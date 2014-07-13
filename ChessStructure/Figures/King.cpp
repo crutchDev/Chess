@@ -51,59 +51,51 @@ void King::collectEnemiesPosCoverage(bool recalcEnemyMove ) {
 	} , ( clr == WHITE ) ? ( BLACK ) : ( WHITE ) );
 }
 
-void King::move(ChessboardPos& pos)
-{
-
-	if (moved) {
-		Figure::move(pos);
+void King::move(ChessboardPos& pos) {
+	if (!moved) {
+		tryCastling(pos, A);
+		tryCastling(pos, H);
 	}
-	else {
-		if (pos.number == currntPos.number) {
-			if (pos.letter - currntPos.letter == 2) {
-				//castling with rook at H
-				Rook* ARook = dynamic_cast<Rook*>((*board)[ChessboardPos(H, currntPos.number)]);
-				ARook->move(ChessboardPos(F, pos.number));
-				Figure::move(pos);
-			}
-			else if (pos.letter - currntPos.letter == -2) {
-				//castling with rook at A
-				Rook* ARook = dynamic_cast<Rook*>((*board)[ChessboardPos(A, currntPos.number)]);
-				ARook->move(ChessboardPos(D, pos.number));
-				Figure::move(pos);
-			}
-		}
-	}
+	Figure::move(pos);
 	moved = true;
 }
 
-void King::checkCastling()
-{
+//checks if king can castle in any direction
+void King::checkCastling() {
 	if (moved) return;
 	//castling with rook at A
-	Figure* fig = (*board)[ChessboardPos(A, currntPos.number)];
-	Rook* rook = dynamic_cast<Rook*>(fig);
-	if (rook) {
-		//if rook didn't move, and other positions are empty
-		if (!rook->isMoved() 
-			//&& board->isFreePos(ChessboardPos(B, currntPos.number))
-			&& board->isFreePos(ChessboardPos(C, currntPos.number))
-			&& board->isFreePos(ChessboardPos(D, currntPos.number)))
-		{
-			allowedMoves.insert(ChessboardPos(C, currntPos.number));
-		}
-	}
+	checkCastlingWith(A);
 
 	//castling with rook at H
-	rook = dynamic_cast<Rook*>((*board)[ChessboardPos(H, currntPos.number)]);
+	checkCastlingWith(H);
+	
+}
+//checks if pos - is position to castle in direction, and moves rook to right position
+void King::tryCastling(ChessboardPos & pos, CharCoord rookPos)
+{
+	if (pos.number != currntPos.number) return;
+
+	int direction = (rookPos > currntPos.letter) ? +1 : -1;
+	if (pos.letter - currntPos.letter == 2 * direction) {
+		Rook* rook = dynamic_cast<Rook*>((*board)[ChessboardPos(rookPos, currntPos.number)]);
+		rook->move(ChessboardPos(currntPos.letter + direction, pos.number));
+	}
+}
+//checks if king can castle with rook at letter
+void King::checkCastlingWith(CharCoord ch) {
+	if (ch != A && ch != H) return;
+
+	Figure* fig = (*board)[ChessboardPos(ch, currntPos.number)];
+	Rook* rook = dynamic_cast<Rook*>(fig);
+	int direction = (currntPos.letter < ch) ? +1 : -1;
 	if (rook) {
 		//if rook didn't move, and other positions are empty
 		if (!rook->isMoved()
-			&& board->isFreePos(ChessboardPos(F, currntPos.number))
-			&& board->isFreePos(ChessboardPos(G, currntPos.number)))
+			&& board->isFreePos(ChessboardPos(currntPos.letter + 1 * direction, currntPos.number))
+			&& board->isFreePos(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number)))
 		{
-			allowedMoves.insert(ChessboardPos(G, currntPos.number));
+			allowedMoves.insert(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number));
 		}
 	}
-	
 }
 

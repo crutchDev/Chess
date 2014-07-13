@@ -14,6 +14,9 @@ public:
 	
 	bool gameOver();	
 	void step(GameInterface* communicator);
+
+
+
 	string getName() const { return name; }
 	vector<Figure*>& getFigures(){ return figures; }
 private:
@@ -21,6 +24,9 @@ private:
 	void initFigures(ChessboardPos corner,bool direction);
 	Figure* storeFigure(Figure* f);
 	static int playerCounter;
+	void tryTransform(Figure* movFigure);
+
+	void changeFigure(ChessboardPos &pos, Figure* movFigure);
 
 	vector<Figure*> figures;
 	Chessboard* board;

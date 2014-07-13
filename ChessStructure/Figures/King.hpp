@@ -13,6 +13,9 @@ public :
 	virtual void calcNewAllowedMoves();
 	virtual short hashCode();
 	virtual void move(ChessboardPos& pos);
+
+
+
 	void checkDangerous();
 
 private: 
@@ -20,8 +23,10 @@ private:
 	bool attacked;
 	bool moved;
 	void checkCastling();
-	void collectEnemiesPosCoverage(bool = false);
+	void checkCastlingWith(CharCoord ch);
 
+	void collectEnemiesPosCoverage(bool = false);
+	void tryCastling(ChessboardPos & pos, CharCoord rookPos);
 
 };
 
