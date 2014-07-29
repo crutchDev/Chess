@@ -95,8 +95,11 @@ void King::checkCastlingWith(CharCoord ch) {
 			i.letter = CharCoord(i.letter + direction)) 
 		{
 			if (!board->isFreePos(i)) return;
-			if (binary_search(enemiesPosCoverage.begin(), enemiesPosCoverage.end(), i)) return;
 		}
+		if (binary_search(enemiesPosCoverage.begin(), enemiesPosCoverage.end(), 
+				ChessboardPos(currntPos.letter + direction, currntPos.number)) 
+			|| binary_search(enemiesPosCoverage.begin(), enemiesPosCoverage.end(),
+				ChessboardPos(currntPos.letter + 2 * direction, currntPos.number))) return;
 		//if position is not under attack
 		allowedMoves.insert(ChessboardPos(currntPos.letter + 2 * direction, currntPos.number));
 	}

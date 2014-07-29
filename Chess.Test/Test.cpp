@@ -2,7 +2,7 @@
 
 #include "../ChessStructure/chessInclude.h"
 
-void checkCastlingLeftAllowed(King* king);
+bool checkCastlingLeftAllowed(King* king);
 
 void testCastling(int dir);
 
@@ -56,7 +56,7 @@ TEST(MovementTests, Castling_left_should_fail) {
 	rook->move(ChessboardPos(A, 0));
 	king->calcNewAllowedMoves();
 
-	checkCastlingLeftAllowed(king);
+	EXPECT_FALSE(checkCastlingLeftAllowed(king));
 }
 
 TEST(MovementTests, Castling_to_attacked_pos) {
@@ -74,7 +74,7 @@ TEST(MovementTests, Castling_to_attacked_pos) {
 	rook->calcNewAllowedMoves();
 	king->calcNewAllowedMoves();
 
-	checkCastlingLeftAllowed(king);
+	EXPECT_FALSE(checkCastlingLeftAllowed(king));
 }
 
 TEST(MovementTests, Castling_while_attacked) {
@@ -93,7 +93,7 @@ TEST(MovementTests, Castling_while_attacked) {
 	king->checkDangerous();
 	king->calcNewAllowedMoves();
 
-	checkCastlingLeftAllowed(king);
+	EXPECT_FALSE(checkCastlingLeftAllowed(king));
 
 }
 
@@ -112,13 +112,13 @@ TEST(MovementTests, Castling_through_attacked_pos) {
 	rook->calcNewAllowedMoves();
 	king->calcNewAllowedMoves();
 
-	checkCastlingLeftAllowed(king);
+	EXPECT_FALSE(checkCastlingLeftAllowed(king));
 }
 
-void checkCastlingLeftAllowed(King* king) {
+bool checkCastlingLeftAllowed(King* king) {
 	ChessboardPos castlingPos = ChessboardPos(C, 0);
 	auto moves = king->getAllowedMove();
-	EXPECT_EQ(find(moves.begin(), moves.end(), castlingPos), moves.end());
+	return find(moves.begin(), moves.end(), castlingPos) != moves.end();
 }
 
 
